@@ -43,40 +43,11 @@
        navbar-expand-md tag means that on medium size screens, the nav bar will
        have all the buttons visible, but on small and extra-small screens (mainly)
        phones and tablets) will require a button press to bring up the nav bar buttons -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">JLL</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="site/research.html">Research</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="site/publications.html">Publications</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Teaching</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            About me
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Bio</a>
-            <a class="dropdown-item" href="#">CV</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Contact</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+    If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
   </nav>
+  <!--Nav bar script-->
+  <script type="text/javascript" src="scripts/navigation.js"></script>
 
   <div class="container-fluid">
     <div class="row">&nbsp;</div>
@@ -88,7 +59,7 @@
       </div>
 
       <div class="col-sm-7">
-        I am a Ph.D. candidate at the University of California, Berkeley developing improved methods for retrieving NO<sub>2</sub> column densities from 
+        I am a Ph.D. candidate at the University of California, Berkeley developing improved methods for retrieving NO<sub>2</sub> column densities from
         space and studying the trends in NO<sub>x</sub> (NO + NO<sub>2</sub>) emissions and lifetimes across the continental United States.
       </div>
 
@@ -109,8 +80,9 @@
       </div>
       <div class="col-sm-1"></div>
     </div>
+
+
   </div>
-        
 
   <!--Linkedin script-->
   <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
