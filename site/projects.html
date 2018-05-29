@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+
+  <title>Joshua L. Laughner</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+  <!--Nav bar script-->
+  <script type="text/javascript" src="../scripts/navigation.js"></script>
+
+  <div class="container-fluid">
+
+    <div class="row">&nbsp;</div>
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm 10">
+        <h3>AutoWRFChem (Base)</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <p></p>
+        <a class="btn btn-primary" href="https://github.com/CohenBerkeleyLab/AutoWRFChem-Base/tree/master",
+        role="button">GitHub</a>
+      </div>
+      <div class="col-sm-6">
+        A package written in a combination of Python and Bash that automates the
+        configuration, compilation, input preparation, and execution of the
+        <a href="https://www2.acom.ucar.edu/wrf-chem">WRF-Chem chemical transport model</a>.
+        Features include:
+          <ul>
+            <li>Necessary environmental variables are sources automatically from
+            a configuration file, meaning you no longer need to remember to set
+            them or place them in a .bashrc file.</li>
+            <li>WRF and all the necessary input utilities (WPS, NEI emissions,
+              MEGAN, MOZBC) can be compiled with a single command.</li>
+            <li>All the necessary inputs can be prepared with a single command.</li>
+            <li>During execution, the most recent restart file can be automatically
+            identified and the model set to start from that file.</li>
+          </ul>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm 10">
+        <h3>Matlab-Python Interface</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <p></p>
+        <a class="btn btn-primary" href="https://github.com/CohenBerkeleyLab/MatlabPythonInterface/tree/master",
+        role="button">GitHub</a>
+      </div>
+      <div class="col-sm-6">
+        A collection of Matlab functions that convert Matlab types in Python types
+        and vice versa. This provides flexibility in converting Matlab arrays,
+        cell arrays, and structures into corresponding Python types.
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm 10">
+        <h3>Bibliography Builder</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <p></p>
+        <a class="btn btn-primary" href="https://github.com/firsttempora/BibBuilder",
+        role="button">GitHub</a>
+      </div>
+      <div class="col-sm-6">
+        A Python package that can assemble a .bib file from a directory of PDF files.
+        It will attempt, for each PDF, to find the DOI number and retrieve the bibliographic
+        entry. It also has a mechanism to update that .bib file if new PDFs are
+        added without overwriting previous entries. A secondary function of this
+        package is to convert .bib files to HTML representations; which is used to
+        update the <a href="publications.html">Publications</a> page on this website.
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm 10">
+        <h3>Parallelizer</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <p></p>
+        <a class="btn btn-primary" href="https://github.com/behr-github/parallelizer",
+        role="button">GitHub</a>
+      </div>
+      <div class="col-sm-6">
+        A small C++ program that can launch parallel iterations of a program using
+        MPI parallelization.
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm 10">
+        <h3>GLOBE Jeopardy</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <p></p>
+        <a class="btn btn-primary" href="https://github.com/firsttempora/GLOBECAP_Jeopardy",
+        role="button">GitHub</a>
+      </div>
+      <div class="col-sm-6">
+        <p>A customizable Jeopardy-like game that I built for a GLOBE
+        (Global Learning and Observation to Benefit the Environment) outreach
+        event. It comes with two sets of trivia, and you can add your own.</p>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-3">
+        <img class="img-fluid" src="../img/projects/jeopardy/Jeopardy-Board.png" alt="Jeopardy game board">
+      </div>
+      <div class="col-sm-3">
+        <img class="img-fluid" src="../img/projects/jeopardy/Jeopardy-Answer.png" alt="Example of a Jeopardy answer">
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10" align="center">
+        <a href="http://www.linkedin.com/in/joshua-laughner" target="_blank"><img src="../img/logos/In-2C-66px-TM.png"></a>
+
+        <a href="https://github.com/joshua-laughner" target="_blank"><img style="max-height:66px" src="../img/logos/GitHub_Logo.png"></a>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10" align="center">
+        <a href="https://orcid.org/0000-0002-8599-4555" target="_blank"><img src="../img/logos/orcid_16x16.png">  https://orcid.org/0000-0002-8599-4555</a>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

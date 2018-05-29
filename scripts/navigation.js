@@ -19,14 +19,8 @@ document.getElementById("navMenu").innerHTML=
     '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'site/publications.html' + '">Publications</a>'+
     '</li>'+
-    '<li class="nav-item dropdown">'+
-      '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-        'Teaching'+
-      '</a>'+
-      '<div class="dropdown-menu" aria-labelledby="navbarDropdown">'+
-        '<a class="dropdown-item" href="' + site_root + 'site/teaching.html' + '">Teaching philosophy</a>'+
-        '<a class="dropdown-item" href="' + site_root + 'site/teaching-experience.html' + '">Teaching experience</a>'+
-      '</div>'+
+    '<li class="nav-item active">'+
+      '<a class="nav-link" href="' + site_root + 'site/projects.html' + '">Projects</a>'+
     '</li>'+
     '<li class="nav-item dropdown">'+
       '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
