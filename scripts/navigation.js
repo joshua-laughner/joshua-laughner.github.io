@@ -22,14 +22,29 @@ document.getElementById("navMenu").innerHTML=
     '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'site/projects.html' + '">Projects</a>'+
     '</li>'+
-    '<li class="nav-item dropdown">'+
-      '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-        'About me'+
-      '</a>'+
-      '<div class="dropdown-menu" aria-labelledby="navbarDropdown">'+
-        '<a class="dropdown-item" href="#">Bio</a>'+
-        '<a class="dropdown-item" href="' + site_root + 'files/Laughner-CV.pdf' + '">CV</a>'+
-      '</div>'+
+    '<li class="nav-item active">'+
+      '<a class="nav-link" href="' + site_root + 'files/Laughner-CV.pdf' + '">CV</a>'+
     '</li>'+
   '</ul>'+
 '</div>'
+
+document.getElementById("myfooter").innerHTML =
+'<div class="row">&nbsp;</div>'+
+'<div class="row">'+
+'<div class="col-sm-1"></div>'+
+'<div class="col-sm-10" align="center">'+
+  '<a href="http://www.linkedin.com/in/joshua-laughner" target="_blank"><img src="' + site_root + 'img/logos/In-2C-66px-TM.png' + '"></a>'+
+  '&nbsp;&nbsp;&nbsp;'+
+  '<a href="https://github.com/joshua-laughner" target="_blank"><img style="max-height:66px" src="' + site_root + 'img/logos/GitHub_Logo.png' +'"></a>'+
+'</div>'+
+'<div class="col-sm-1"></div>'+
+'</div>'+
+'<div class="row">&nbsp;</div>'+
+'<div class="row">'+
+'<div class="col-sm-1"></div>'+
+'<div class="col-sm-10" align="center">'+
+  '<a href="https://orcid.org/0000-0002-8599-4555" target="_blank"><img src="' + site_root + 'img/logos/orcid_16x16.png' + '">  https://orcid.org/0000-0002-8599-4555</a>'+
+'</div>'+
+'<div class="col-sm-1"></div>'+
+'</div>'+
+'<div class="row">&nbsp;</div>'
