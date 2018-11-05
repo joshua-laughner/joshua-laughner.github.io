@@ -13,8 +13,11 @@ document.getElementById("navMenu").innerHTML=
     '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'index.html' + '">Home <span class="sr-only">(current)</span></a>'+
     '</li>'+
-    '<li class="nav-item active">'+
-      '<a class="nav-link" href="' + site_root + 'site/research.html' + '">Research</a>'+
+    '<li class="nav-item dropdown">'+
+      '<a class="nav-link dropdown-toggle" href="' + site_root + 'site/research.html' + '" id="navbarDropbown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research </a>'+
+      '<div class="dropdown-menu" aria-labelledby="navbarDropdown">' + 
+        '<a class="dropdown-item" href="' + site_root + 'site/research.html' + '">Current Research</a>' +
+        '<a class="dropdown-item" href="' + site_root + 'site/phd-research.html' + '">Previous Research</a>' +
     '</li>'+
     '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'site/publications.html' + '">Publications</a>'+

@@ -51,45 +51,30 @@
       <div class="col-sm-1"></div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
+    <!--<div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
         <h3>The short version</h3>
       </div>
-      <div class="col-sm-1"></div>
-    </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>-->
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <p>In my Ph.D. work, I have focused on the effects of temporal resolution of <i>a priori</i> profiles on NO<sub>2</sub> retrievals from the Ozone Monitoring Instrument (OMI). I found that using daily profiles, instead of monthly average profiles, can have a significant effect on the retrieved NO<sub>2</sub>, and that it is especially important in certain approaches to constrain emissions and lifetime of NO<sub>x</sub> from space (<a href="https://doi.org/10.5194/acp-16-15247-2016" target="_blank">the paper</a>). I designed a major upgrade to the <a href="http://behr.cchem.berkeley.edu" target="_blank">Berkeley High Resolution OMI NO<sub>2</sub> retrieval</a> that incorporated daily profiles, and also took advantages of developments in the WRF-Chem model to include the effect of lightning on the NO<sub>2</sub> profiles (<a href="https://doi.org/10.5194/amt-10-4403-2017" target="_blank">the paper</a>). Currently, I am using the new version of the retrieval to study how NO<sub>x</sub> emissions and chemistry changed over the continental US between 2005 and 2015.</p>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>My current research focues on using the Total Carbon Column Observing Network (TCCON) to validate the Orbiting Carbon Observatory 3 (OCO-3) when it launches early in 2019. OCO-3 will be placed on the International Space Station, and due to the orbit of the ISS, will pass overhead at different local times each day. This contrasts with OCO-2, which always passes over a given location at roughly the same time each day. This means that the combination of OCO-2 and OCO-3 will let us study how certain processes change over the course of a day.</p>
+
+        <p>The main product of OCO-3 will be its XCO<sub>2</sub> measurement, the mixing ratio of CO<sub>2</sub> in the total atmospheric column. An important step in using OCO-3 is to verify that this XCO<sub>2</sub> measurement is accurate. Like OCO-2, we will use the TCCON network to do so. TCCON is a network of high spectral resolution FT-IR spectrometers that measure column XCO<sub>2</sub> from the ground. Because these can be calibrated very precisely, they provide the key method to validate OCO-3 by comparing coincident measurements.</p>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
     </div>
+
 
     <div class="row">&nbsp;</div>
 
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <h3>The full story</h3>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <p>My research focuses on the development and application of new NO<sub>2</sub> retrievals for the Ozone Monitoring Instrument (OMI) on board the Aura satellite. Launched in 2004, OMI had the highest spatial resolution of any satellite capable of observing NO<sub>2</sub> until the launch of TROPOMI (the Tropospheric Monitoring Instrument) in October 2017. OMI's spatial resolution is great enough to allow us to resolve gradients in NO<sub>2</sub> column density between cities and the surrounding area. The ability to observe NO<sub>2</sub> concentrations at this resolution provides a powerful tool to understand how NO<sub>x</sub> (the sum of NO and NO<sub>2</sub>) emissions and chemistry vary from city to city. At this resolution, the rate of loss of NO<sub>x</sub> as it is advected out of cities can be measured, which combined with knowledge of the wind speed, allows us to infer the rate of chemical loss. When that is combined with measurments of the total amount of NO<sub>x</sub> in an urban plume, the emissions rate can be inferred by a mass balance approach.</p>
-
-      <p>However, getting the most benefit out of satellite observations at this spatial resolution poses some unique challenges. Satellite observations of NO<sub>2</sub> infer the amount of NO<sub>2</sub> in the column extending vertically from the Earth's surface to the top of the troposphere by measuring the absorbance of sunlight passing through the atmosphere in a similar manner to any UV-vis spectrometry experiment. However, NO<sub>2</sub> at different altitudes in the atmosphere affects the amount of outgoing reflected sunlight differently, and so the same physical amount of NO<sub>2</sub> will register as a different measured amount depending on its altitude, unless that is taken into account. To do so requires the use of two models, a radiative transfer model (RTM) and chemical transport model (CTM). The latter simulates vertical distributions of NO<sub>2</sub> for different locations around the world, and the former accounts for how that vertical distribution of NO<sub>2</sub> affects the top-of-atmosphere radiances observed by the satellite.</p>
-
-      <p>CTMs are computationally expensive to run at high spatial resolution, so standard, worldwide retrievals of NO<sub>2</sub> simulate the necessary vertical distributions at resolutions greater than 1&#176; by 1&#176;, which is about 10x coarser than a nadir OMI pixel. A number of groups have experimented with trading global coverage for better resolution of the NO<sub>2</sub> profiles, and find that simulating NO<sub>2</sub> profiles at comparable resolutions to OMI pixels increases NO<sub>2</sub> retrieved over high emission areas, like cities and oil or gas extraction sands, by up to 100&percnt;. My research took the next step: if spatial resolution matters that much, what about temporal resolution? These retrievals often use monthly average profiles; how much difference does using daily profiles make?</p>
-
-      <p>My research found that the temporal resolution of the NO<sub>2</sub> profiles does have an important effect on the retrieved NO<sub>2</sub> column densities, especially when constraining emissions and lifetimes with those retrievals. I found that switching from monthly averaged to daily profiles would alter the retrieved NO<sub>2</sub> column density by as much as 40&percnt;. Further, while averaging the satellite data over multiple months reduces the importance of daily profiles in most cases, I also found that in regions with significant lightning NO<sub>x</sub> emissions, the temporal resolution even affects a multi-month average. Daily profiles are especially important when constraining emissions and lifetime, because in that application, NO<sub>2</sub> observations downwind of a source are chosen, rather than using all directions in a standard average, thus the day-to-day variation in wind direction becomes an important part of the NO<sub>2</sub> profiles used in the retrieval process.</p>
-
-      <p>This work led directly to the creation of a new version of the <a href="http://behr.cchem.berkeley.edu" target="_blank">Berkeley High Resolution OMI NO<sub>2</sub> retrieval</a> that incorporated daily NO<sub>2</sub> profiles, along with several other improvements. Now, I am using the upgraded retrieval to study how NO<sub>x</sub> emissions across the continental United States have changed between 2005 and 2015 and what effects that has had on NO<sub>x</sub> chemistry. The ability to probe changes in NO<sub>x</sub> chemistry from space offers a powerful method to predict how future emissions controls will affect the concentrations of related pollutants, such as ozone.</p>
-      </div>
-      <div class="col-sm-1"></div>
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
     </div>
 
     <div class="row">&nbsp;</div>

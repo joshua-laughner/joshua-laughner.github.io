@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+
+  <title>Joshua L. Laughner</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h2>Previous research</h2>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The short version</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>In my Ph.D. work, I have focused on the effects of temporal resolution of <i>a priori</i> profiles on NO<sub>2</sub> retrievals from the Ozone Monitoring Instrument (OMI). I found that using daily profiles, instead of monthly average profiles, can have a significant effect on the retrieved NO<sub>2</sub>, and that it is especially important in certain approaches to constrain emissions and lifetime of NO<sub>x</sub> from space (<a href="https://doi.org/10.5194/acp-16-15247-2016" target="_blank">the paper</a>). I designed a major upgrade to the <a href="http://behr.cchem.berkeley.edu" target="_blank">Berkeley High Resolution OMI NO<sub>2</sub> retrieval</a> that incorporated daily profiles, and also took advantages of developments in the WRF-Chem model to include the effect of lightning on the NO<sub>2</sub> profiles (<a href="https://doi.org/10.5194/amt-10-4403-2017" target="_blank">the paper</a>). Currently, I am using the new version of the retrieval to study how NO<sub>x</sub> emissions and chemistry changed over the continental US between 2005 and 2015.</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The full story</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>My research focuses on the development and application of new NO<sub>2</sub> retrievals for the Ozone Monitoring Instrument (OMI) on board the Aura satellite. Launched in 2004, OMI had the highest spatial resolution of any satellite capable of observing NO<sub>2</sub> until the launch of TROPOMI (the Tropospheric Monitoring Instrument) in October 2017. OMI's spatial resolution is great enough to allow us to resolve gradients in NO<sub>2</sub> column density between cities and the surrounding area. The ability to observe NO<sub>2</sub> concentrations at this resolution provides a powerful tool to understand how NO<sub>x</sub> (the sum of NO and NO<sub>2</sub>) emissions and chemistry vary from city to city. At this resolution, the rate of loss of NO<sub>x</sub> as it is advected out of cities can be measured, which combined with knowledge of the wind speed, allows us to infer the rate of chemical loss. When that is combined with measurments of the total amount of NO<sub>x</sub> in an urban plume, the emissions rate can be inferred by a mass balance approach.</p>
+
+        <p>However, getting the most benefit out of satellite observations at this spatial resolution poses some unique challenges. Satellite observations of NO<sub>2</sub> infer the amount of NO<sub>2</sub> in the column extending vertically from the Earth's surface to the top of the troposphere by measuring the absorbance of sunlight passing through the atmosphere in a similar manner to any UV-vis spectrometry experiment. However, NO<sub>2</sub> at different altitudes in the atmosphere affects the amount of outgoing reflected sunlight differently, and so the same physical amount of NO<sub>2</sub> will register as a different measured amount depending on its altitude, unless that is taken into account. To do so requires the use of two models, a radiative transfer model (RTM) and chemical transport model (CTM). The latter simulates vertical distributions of NO<sub>2</sub> for different locations around the world, and the former accounts for how that vertical distribution of NO<sub>2</sub> affects the top-of-atmosphere radiances observed by the satellite.</p>
+
+        <p>CTMs are computationally expensive to run at high spatial resolution, so standard, worldwide retrievals of NO<sub>2</sub> simulate the necessary vertical distributions at resolutions greater than 1&#176; by 1&#176;, which is about 10x coarser than a nadir OMI pixel. A number of groups have experimented with trading global coverage for better resolution of the NO<sub>2</sub> profiles, and find that simulating NO<sub>2</sub> profiles at comparable resolutions to OMI pixels increases NO<sub>2</sub> retrieved over high emission areas, like cities and oil or gas extraction sands, by up to 100&percnt;. My research took the next step: if spatial resolution matters that much, what about temporal resolution? These retrievals often use monthly average profiles; how much difference does using daily profiles make?</p>
+
+        <p>My research found that the temporal resolution of the NO<sub>2</sub> profiles does have an important effect on the retrieved NO<sub>2</sub> column densities, especially when constraining emissions and lifetimes with those retrievals. I found that switching from monthly averaged to daily profiles would alter the retrieved NO<sub>2</sub> column density by as much as 40&percnt;. Further, while averaging the satellite data over multiple months reduces the importance of daily profiles in most cases, I also found that in regions with significant lightning NO<sub>x</sub> emissions, the temporal resolution even affects a multi-month average. Daily profiles are especially important when constraining emissions and lifetime, because in that application, NO<sub>2</sub> observations downwind of a source are chosen, rather than using all directions in a standard average, thus the day-to-day variation in wind direction becomes an important part of the NO<sub>2</sub> profiles used in the retrieval process.</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+     
+
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10 col-lg-5">
+        <img src="../img/research/ModelColumnsAndDeltaVCDs-rotated.png" class="img-fluid">
+      </div>
+      <div class="col-sm-1 d-none d-sm-block d-lg-none"></div>
+      <div class="col-sm-1 d-none d-sm-block d-lg-none"></div>
+      <div class="col-xs-12 col-sm-10 col-lg-5">
+        <p><b>Figure 1:</b> Top row - modeled NO<sub>2</sub> VCDs around Atlanta, GA, USA representing three sets of <i>a priori</i> profiles for one day. (a) 108 km resolution, monthly average. (b) 12 km resolution, monthly average. (c) 12 km resolution, daily average. In this case, greater column density indicates greater surface NO<sub>2</sub>.</p>
+
+        <p>Bottom row - percent change in retrieved NO<sub>2</sub> VCDs as when changing the <i>a priori</i> profiles from (d) 108 km to 12 km monthly, and (e) 12 km monthly to daily.</p>
+
+        <p>Increasing the spatial resolution of the <i>a priori</i> profiles (a to b) dramatically increases the retrieved VCDs right over Atlanta (d). Switching from monthly to daily <i>a priori</i> profiles (b to c) has a smaller effect on the retrieved VCDs (e), but there is a clear upwind/downwind difference. The wind direction is indicated by the arrow in (e).</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+
+ 
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+      <p>This work led directly to the creation of a new version of the <a href="http://behr.cchem.berkeley.edu" target="_blank">Berkeley High Resolution OMI NO<sub>2</sub> retrieval</a> that incorporated daily NO<sub>2</sub> profiles, along with several other improvements. Now, I am using the upgraded retrieval to study how NO<sub>x</sub> emissions across the continental United States have changed between 2005 and 2015 and what effects that has had on NO<sub>x</sub> chemistry. The ability to probe changes in NO<sub>x</sub> chemistry from space offers a powerful method to predict how future emissions controls will affect the concentrations of related pollutants, such as ozone.</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="research.html" role="button">Go to current research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>
