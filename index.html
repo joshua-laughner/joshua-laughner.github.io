@@ -33,7 +33,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <img src="./img/oco2-cropped.jpg" class="img-responsive" alt="OCO-2 in orbit">
+        <div class="col-xs-12"><img src="./img/oco2-cropped.jpg" class="img-fluid" alt="OCO-2 in orbit"></div>
     </div>
   </div>
 
@@ -51,13 +51,11 @@
   <div class="container-fluid">
     <div class="row">&nbsp;</div>
     <div class="row">
-      <div class="col-sm-1"></div>
-
-      <div class="col-sm-3" align="center">
+      <div class="col-sm-12 col-md-6 col-lg-3 col-lg-offset-1" align="center">
         <img src="./img/myself/Headshot-small.jpg" class="img-responsive" alt="Photograph of Josh Laughner">
       </div>
 
-      <div class="col-sm-7">
+      <div class="col-sm-12 col-md-6 col-lg-8">
           <p>I am a postdoctoral scholar in the Wennberg group at the California Institute of Technology. My primary research focuses
           on applications of the Orbiting Carbon Observatory 3 (OCO-3) instrument. I will be involved in validating in after it
           launches in 2019. Once it is operational, I plan to use it in conjunction with the exisiting OCO-2 instrument to study how 
@@ -71,25 +69,28 @@
           with forward and inverse models to study anthropogenic and natural emissions of trace gases to the atmosphere and
           the chemistry that controls the ultimate fate of those trace gases.</p>
       </div>
-
-      <div class="col-sm-1"></div>
-
     </div>
 
     <div class="row">&nbsp;</div>
 
+    <!-- In bootstrap 4 visible-* and hidden-* classes were removed and replaced with display classes
+         see https://stackoverflow.com/questions/45666656/bootstrap-4-responsive-utilities-visible-hidden-xs-sm-lg-not-working
+         and https://getbootstrap.com/docs/4.1/utilities/display/-->
+
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-2" align="center">
+      <div class="col-md-1 col-lg-3 visible-md-block"></div>
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" align="center">
         <a class="btn btn-info" href="site/research.html" role="button">Go to research</a>
       </div>
-      <div class="col-sm-2" align="center">
+      <div class="col-xs-12 d-block d-sm-none">&nbsp;</div>
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" align="center">
         <a class="btn btn-info" href="site/publications.html" role="button">Go to publications</a>
       </div>
-      <div class="col-sm-2" align="center">
+      <div class="col-xs-12 d-block d-sm-none">&nbsp;</div>
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" align="center">
         <a class="btn btn-info" href="site/projects.html" role="button">Go to projects</a>
       </div>
-      <div class="col-sm-3"></div>
+      <div class="col-md-1 col-lg-3 visible-md-block"></div>
     </div>
 
     <div class="row">&nbsp;</div>
