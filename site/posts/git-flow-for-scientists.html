@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+
+  <title>Joshua L. Laughner - Git flow for scientists</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h2>Git flow for scientists</h2>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The short version</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>After using Git for version control throughout my Ph.D., I've become a big proponent
+        of using the <a href="https://nvie.com/posts/a-successful-git-branching-model/">Git flow</a>
+        model. It was a very good fit for my research, because I was working on a satellite product
+        that we work periodically release new versions of to the public - so the Git flow paradigm
+        of having a stable master branch and an unstable develop branch made a lot of sense. But,
+        even if you just have a code base that's shared among your lab mates, or even just your
+        own code, it's a good model to follow.</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3>Extending Git flow for sharing code in the lab: the personal develop branch</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3>Git flow for a one-person repo</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3>Getting small features out of long-term branches into develop</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>Where things get a little tricky is that, in many ways, a Ph.D. can be considered one
+        <i>really</i> long development time feature branch. So it's somewhat inevitable that you'll
+        run into a situation where you've been happily working away on a branch that probably won't
+        be ready to merge back into develop for another six months. Let's say that this is code to
+        process raw data from an instrument in your lab into calibrated, useful data, and you're working
+        on a major overhaul to deal with much higher time resolution data from your experiment.</p>
+
+        <p>Then another lab member tells you about a problem they're having: if the data is taken over
+        two days (crosses midnight) the current processing code can't process that as a single run. Fortunately,
+        this is something you already fixed in your rewrite! Unfortunately its stuck as part of this big,
+        long-term branch. You're quite confident that the fix for data crossing midnight works as intended,
+        but you're no where near ready to merge the whole branch into develop. How can you merge just the fix
+        into develop?</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h5>Best case: needed commits at the branch tip</h5>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h5>Middle case: changes isolated in older commits</h5>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h5>Worst case: changes mixed with unrelated changes in older commits</h5>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

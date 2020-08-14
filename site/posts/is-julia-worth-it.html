@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+
+  <title>Joshua L. Laughner - When its worth using an SQL database in research</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h2>Fortran is dead, long live Julia?</h2>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The short version</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p><a href="https://julialang.org/">Julia</a> is a relatively new programming language, with it's 1.0 release just a few years ago in 2018.
+        It's geared towards the same sort of technical computing problems that Python, R, and Matlab have targeted for years with one key 
+        difference: Julia aims to be easy to use like them but also fast. In my field I've been seeing people try to apply Julia to computationally
+        intensive problems like climate modeling, radiative transfer, or remote sensing retrievals that have been traditionally written in 
+        Fortran or another ahead-of-time compiled language because the application needs the computational speed that Fortran gives compared to
+        Python, R, et al.</p>
+
+        <p>This is what I've heard Julia developers and advocates call the "two language problem": subject matter experts (scientists, engineers, etc.)
+        are more comfortable writing in a flexible lanuage like Python so they code up the algorithm that needs to be run in that language, but then
+        when it comes time to put it into production it needs translated to something faster like Fortran by a software expert. Now the subject 
+        expert can't as easily modify the production code if they need to adjust the algorithm.  In theory, Julia solves that problem by having a
+        simple syntax and fast execution.</p>
+
+        <p>So, is Fortran dead and Julia the new queen? Surprisingly, I'm going to argue <b>no</b>, but not because Julia doesn't deliver on what it
+        promises for speed, but because to achieve flexibility it had to give up on safety.</p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3>Is Julia fast?</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>Let's get this out of the way now: Julia is certainly fast, but well written Python (for example) can be too.
+          I did a little timing test, where I compared multiplying two arrays with 100 million elements in Julia, Python,
+          and C++. All three test files are <a href="https://gist.github.com/joshua-laughner/d2207b5084e224e634d8a091101e9e23">here</a>.
+        </p>
+
+        <p>For the C++ code, I timed allocating the output array and actually multiplying separately. Allocation on my computer took
+        3 &mu;s, while the multiplications took between 262 and 359 ms each.</p>
+
+        <p>In the Python test, I did the multiplication as a list comprehension, a <code>for</code> loop (saving entries into a 
+          preexisting list), and Numpy array multiplication. The first two methods took <i>forever</i>: between 6.9 and 10.9 s for 
+          the first and 10.2 s and 13.6 s for the second - and that's excluding the time to initialize the destination list. 
+          But using Numpy arrays - like you would normally for this kind of work - took only 163 to 192 <b>ms</b>, 
+          <i>faster</i> than my C++.</p>
+
+        <p>Finally I tested this in Julia. I tried a few different ways - using broadcasting (like you would with Numpy) and using a <code>for</code> loop, as well as preallocating
+          or not. Preallocating always reported about 200 ms faster than not, so I assume the allocation takes about that long. Much slower
+          than C++, but Julia array are also more than just a pointer to a block of memory. Critically, the actual multiplication took 
+          around 500 ms. This is slower than Numpy, <i>but didn't matter whether I used a <code>for</code> loop or not.</i>
+        </p>
+
+        <p>So is Julia fast? The numbers seem to say not as fast as Numpy, but:</p>
+        <ol>
+          <li>I have not used Julia nearly as long as I've used Python, so I could be missing an obvious optimization</li>
+          <li>Critically, using a <code>for</code> loop is just as fast as the matrix element-wise multiplication</li>
+        </ol>
+
+        <p>This is one very nice thing about Julia: it is "fast by default". If it make sense to write your code using a 
+          <code>for</code> loop, do it. If doing element-wise multiplication is clearer, do that. It's quite liberating
+          to not have to always be thinking "how do I make this an element-wise operation".
+        </p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3>What's this about safety?</h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The short version</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>Speed is, honestly, not the only reason to choose a language like C++ or Fortran. Another big reason is that they
+          are statically typed, which eliminates a whole category of bugs. So, while in Python, you could write a function 
+          like this:
+        </p>
+
+        <pre>
+def calc_potential_temperature(t, p):
+    return t * (1000/p)**0.286
+        </pre>
+
+        <p>and as long as the values you pass in for <code>t</code> and <code>p</code> can be multiplied and raised to a power,
+        this will work. That's convenient because now you can use it for scalars, Numpy arrays, Pandas dataframes, xarray data arrays,
+        and all compatible combinations of those.</p>
+
+        <p>As handy as this is when you're doing a quick analysis, it starts to lose its charm as you build bigger programs in Python.
+          Now, you're calling this function at the bottom of a 10-deep call stack, and you're not actually sure what types <code>t</code>
+          and <code>p</code> are. You assume that they're Numpy arrays because you've tried to keep all your variables as arrays, but 
+          you can't be sure. You test it as best you can though, so it's time to go ahead and run this program on the cluster.
+        </p>
+
+        <p>Then you get the dreaded JOB FAILED email... the error message says something about xarray coordinates, but points to this 
+          function. Why is it getting xarray arrays and not Numpy arrays? Oh right, you'd decided to load the bigger datasets on the 
+          cluster with xarray to take advantage of lazy loading... and never converted them to standard numpy arrays.
+        </p>
+
+        <p>This is the downfall of dynamic typing; it's convenient, but then you have to anticipate all possible input types, or 
+          check for types manually (and take some performance hit), or grit your teeth and deal with the type bugs as they crawl out.
+          In contrast, a statically typed language would let you declare these inputs must be Numpy arrays, and then the compiler will 
+          verify that every possible code path leads to these being Numpy arrays. No surprises, no unexpected type bugs, but at the 
+          cost of flexibility.
+        </p>
+
+        <p>As you work on bigger and bigger projects, this trade off of flexibility in exchange for automatic and thorough type checking
+          becomes more and more worth it. Being able to know, without a doubt, that your inputs will be a specific type, makes it much 
+          simpler to write a small part of a larger program, or edit it with confidence.
+        </p>
+
+        <p>Here's where some confusion about Julia creeps in: it <i>looks</i> like it does this. You can define, for example:</p>
+
+        <pre>
+function calc_potential_temperature(t::Array{Float64,1}, p::Array{Float64,1})
+    return t .* (1000 ./ p) .^ 0.286
+end
+        </pre>
+
+        <p>and indeed, this will only ever be called with 1D arrays of floats. But there's a crucial difference between this and 
+          a true statically typed language: <i>when</i> this is checked. For C, C++, Fortran or their ilk, this happens at compile 
+          time. In Julia, this still happens at run time. What's the difference? Well, let's take the example above where we tested 
+          our Python code on our computer without a problem, but it crashed on the cluster. To make this a little more concrete, 
+          take this psuedocode as the key part of the program:
+        </p>
+
+        <pre>
+if file_size > 2GB:
+    atmos_pres = lazy_load(data_file, 'pressure')
+    atmos_temp = lazy_load(data_file, 'temperature')
+else:
+    atmos_pres = load_now(data_file, 'pressure')
+    atmos_temp = load_now(data_file, 'temperature')
+
+atmos_pt = calc_potential_temperature(atmos_temp, atmos_pres)
+        </pre>
+
+        <p>If it were written in, say C++, then when you compiled in on your computed to test, the compiler could tell if
+          <code>lazy_load</code> and <code>load_now</code> returned different types, and error immediately if one of those types 
+          didn't match the input types to <code>calc_potential_temperature</code>. (Technically it would error earlier, but let's 
+          keep it simple.)
+        </p>
+
+        <p>Julia doesn't check that. What it does it when it compiles it says to itself "Okay, here I will need to call something 
+          named <code>calc_potential_temperature</code>. Let's see what types <code>atmos_temp</code> and <code>atmos_pres</code>
+          are when this actually runs, and we'll figure out which version of <code>calc_potential_temperature</code> to call then."
+          You run it on your computer, it gets to the call to <code>calc_potential_temperature</code>, and because your computer 
+          uses <code>load_now</code>, <code>atmos_temp</code> and <code>atmos_pres</code> are simple arrays. Julia goes "Yup, I 
+          have a version of <code>calc_potential_temperature</code> that takes two arrays of floats - use that one!". Then you move 
+          to the cluster, where <code>atmos_temp</code> and <code>atmos_pres</code> are something else. Julia doesn't worry about 
+          that until it reaches that line during execution, and <i>then</i> says "Oh, hmmm, nope. No version of <code>calc_potential_temperature</code>
+          that takes two lazy arrays. Sorry - MethodError!" In other words, while Julia's typing can ensure you don't get an unexpected
+          type inside the function, it can't guarantee that the function is never called with the wrong type.
+
+        </p>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+
+  <title>Joshua L. Laughner - When its worth using an SQL database in research</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h2>When its worth using an SQL database in research</h2>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <h3>The short version</h3>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>-->
+    <div class="row">
+      <div class="col-sm-1 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-10">
+        <p>I'd heard about databases for a long time, but for scientific programming,
+        I always thought, "What's the advantage over a nice, simple text file?" The way
+        I saw it:</p>
+
+        <ul>
+          <li> I already knew how to work with text files my my programming languages of choice</li>
+          <li> Text files are easy to view and edit</li>
+        </ul>
+
+        <p>On the other hand, databases seemed like a pain in the neck:</p>
+
+        <ul>
+          <li>A lot of them need a server program set up to let you access the database.</li>
+          <li>I'd have to learn at least enough SQL to interact with the database (and coming from a
+            Matlab/Python background, SQL takes some getting used to)</li>
+          <li>A database just consists of tables, and I can make a table just fine in a text
+          file as a .csv.</li>
+        </ul>
+
+        <p>It took literally until the last month of my Ph.D., and getting to talk with a web developer
+        who really understood the benefits of databases, before I ended up taking the plunge, figuring out
+        how to work with them, and learning what makes a database better, in some cases, than a simple text
+        file. Those advantages are:</p>
+
+        <ol>
+          <li>You don't need a server if you use SQLite3, which is a database management system that just saves
+            your database as a single file. No messing around to set up a server.</li>
+          <li>It's easy to change a line in the middle of a database. It's hard (or at least annoying) to change
+          one in the middle of a text file.</li>
+          <li>A database can store different data types - no need to convert to and from strings.</li>
+          <li>A database intrinsically protects you from some mistakes, and lets you protect yourself from others, for example</li>
+            <ol type="a">
+              <li> Every column has a value, even if that value is null. No worrying about your CSV writer skipping a column.</li>
+              <li> You can put some simple rules on columns, like the value cannot be null, or every value must be unique, that
+                can help catch some mistakes in data entry.</li>
+            </ol>
+          <li>A database has mechanisms in place to deal with simultaneous edits</li>
+        </ol>
+      </div>
+      <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+
+
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>
