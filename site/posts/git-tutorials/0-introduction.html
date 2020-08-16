@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../style/posts.css">
+
+  <title>Joshua L. Laughner - An introduction to Git</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-7">
+        <h2 id="an-introduction-to-git">An introduction to Git</h2>
+<h3 id="what-is-git-and-why-do-i-need-it">What is Git, and why do I need it?</h3>
+<p>Git is what's called a <em>distributed version control system</em> or DVCS. A version control system is a piece of software that allows you to track how a collection of files changes over time. Though it can work with any file type, it is optimized to work with plain text files, like code, Latex markup, .csv files.</p>
+<p>At one time or another you've probably come across the following situation: you have your code/Latex paper/csv data and you need to make a big change to it, but you want to be able to go back to the old version if you need to. So you make a copy of the file or folder, change the original, and keep the copy around "just in case." Then a few days/weeks/months later you make another copy, then another, and another, and pretty soon you have a half dozen copies of the same file/folder and it's getting difficult to remember exactly what the differences between them are (not to mention your file system's getting rather messy).</p>
+<p>Enter Git. This is exactly the problem Git is meant to solve. Git is built around the idea of "commits" which are conceptually similar to those copies of the project folder you made in the above example, but with some key advantages:</p>
+<ol style="list-style-type: decimal">
+<li>Git keeps the copies tucked away in a hidden folder so your file tree stays clean</li>
+<li>Git is smart and only makes copies of the files that changed, which can save hard drive space in large project.</li>
+<li>Git automatically dates each commit, gives you the opportunity to record a message that goes along with it, and keeps track of the order the commits go in.</li>
+<li>Git is built to allow you to examine the differences (in plain text files) between any two commits.</li>
+</ol>
+<h3 id="what-git-is-not">What Git is not</h3>
+<p>Git is not the same as a backup utility. The key difference is that a backup utility is often configured to backup files at a set frequency, be it once per hour, day, or week. Git will only create a snapshot of your data when you tell it to.</p>
+<p>Second, Git != GitHub. You can use Git without ever creating a GitHub account. Git is a tool that works on your local computer, GitHub is a website that allows you to share your Git repositories between different computers or with different people, and it is just one of several ways to accomplish that goal. If you are concerned about keeping your code private, don't worry, you never have to upload it to GitHub if you don't want to.</p>
+<h3 id="prequisites">Prequisites</h3>
+<p>This tutorial focuses on using Git via the command line. Therefore, it will be helpful if you know the basics of moving around directories and listing files in the command line.</p>
+<h3 id="lesson-format-and-outline">Lesson format and outline</h3>
+<p>I will introduce the major features of Git in several parts. The core Git features will be divided into three parts:</p>
+<ul>
+<li>Part I will focus on using Git to track the linear history of a project with no branches.</li>
+<li>Part II will introduce the concept of branches, which allow you to have multiple parallel histories advances simultaneously.</li>
+<li>Part III will talk about how to use remotes to synchronize work across two or more machines.</li>
+</ul>
+<p>Understanding even just the first part will be enough to start using Git in your research. Becoming proficient with all three parts will cover the vast majority of your day-to-day use of Git. I also have written up a series of smaller posts covering more specific subjects:</p>
+<ul>
+<li>Cleaning up history: rebase, reset, and the reflog</li>
+<li>Git Flow for scientists: a system for managing long-duration projects</li>
+<li>GitHub concepts: forks and pull requests</li>
+</ul>
+<h4 id="part-i-tracking-a-linear-history">Part I: tracking a linear history</h4>
+<ul>
+<li>Lesson 1: Installing Git</li>
+<li><a href="part1/2-setup-and-first-commit.html">Lesson 2: Creating a repo and making the first commit</a></li>
+<li><a href="part1/3-further-commits.html">Lesson 3: Making additional commits, and understanding the HEAD, index, and working directory</a></li>
+<li><a href="part1/4-reviewing-history.html">Lesson 4: Reviewing history with log and diff</a></li>
+<li>Lesson 5: Deleting a file vs. stopping tracking</li>
+<li><a href="part1/6-going-back.html">Lesson 6: Revisiting history: going back to old commits and deleting uncommitted changes</a></li>
+<li>Lesson 7: Ignoring irrelevant files with .gitignore</li>
+</ul>
+<h4 id="part-ii-using-branches-to-manage-parallel-histories">Part II: using branches to manage parallel histories</h4>
+<ul>
+<li>Lesson 1: Basic branching and merging</li>
+<li>Lesson 2: Recursive merges</li>
+<li>Lesson 3: Resolving conflicts</li>
+<li>Lesson 4: Switching branches with working directory changes</li>
+<li>Lesson 5: Tags</li>
+</ul>
+<h4 id="part-iii-sharing-a-repo-with-remotes">Part III: sharing a repo with remotes</h4>
+<ul>
+<li>Lesson 1a: creating a remote yourself</li>
+<li>Lesson 1b: creating a remote on GitHub</li>
+<li>Lesson 2: pushing changes to and pulling changes from remotes</li>
+<li>Lesson 3: dealing with push conflicts</li>
+<li>Lesson 4: synchronizing multiple branches with a remote</li>
+</ul>
+
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><b>An introduction to Git</b></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

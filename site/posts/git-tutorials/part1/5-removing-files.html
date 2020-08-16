@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../../style/posts.css">
+
+  <title>Joshua L. Laughner - Part 1, Lesson 5: removing files</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-7">
+        <h2 id="part-1-lesson-5-removing-files">Part 1, Lesson 5: removing files</h2>
+<p><strong>Lesson goal:</strong> learn how to stop tracking and remove files from future commits.</p>
+<p><strong>Git commands:</strong></p>
+<ul>
+<li><code>git rm</code> to delete and stop tracking a file</li>
+<li><code>git rm --cached</code> to <em>only</em> stop tracking a file</li>
+<li><code>git add</code> to stage deletions done outside git</li>
+</ul>
+<p><strong>Git concepts:</strong></p>
+<ul>
+<li>None</li>
+</ul>
+<p><strong>Downloads:</strong></p>
+<ul>
+<li><a href="./demo-files-l5.zip">The repo from the end of lesson 4</a></li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p>In Git, when we say we want to delete or remove a file, we can mean one of three things:</p>
+<ol style="list-style-type: decimal">
+<li>Stop tracking the file for future commits, but keep the file itself and keep it in previous commits</li>
+<li>Actually remove the file and stop tracking, but keep it in previous commits</li>
+<li>Purge the file from the entire repo, including past commits.</li>
+</ol>
+<p>I'm not going to talk about the third case here, it's extremely rare that you need to do that and usually only applied if you've accidentally tracked sensitive data (like medical history or classified documents) or have a large data file tracked that's preventing you from uploading to a remote. If you do need it, GitHub has <a href="https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository#purging-a-file-from-your-repositorys-history">help on that</a>.</p>
+<p>Here we're going to go through the first two cases. <strong>The most important thing to know is that as long as you've committed a file at least once, it will remain in the repo.</strong> Deleting a file just means it won't show up in your working directory, not that it's gone from the repo entirely.</p>
+<h3 id="untracking-a-file">Untracking a file</h3>
+<p>This is actually the less used case. If you want to be able to still access the file, but just don't want it to be in future commits, you'd use <code>git rm --cached</code>. Let's see that in action. Suppose we want to stop tracking <code>months.txt</code>. In our repo, we'd do:</p>
+<pre><code>$ git rm --cached months.txt
+rm 'months.txt'</code></pre>
+<p>Now if you do <code>git status</code> you'll see:</p>
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+    deleted:    months.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt</code></pre>
+<p>Notice that under "Changes to be committed" it lists <code>months.txt</code> as deleted. But, it also shows up in "Untracked files." If you list the files in this directory, you'll still see it:</p>
+<pre><code>$ ls
+daysofweek.txt  months.txt</code></pre>
+<p>and you can still view its contents:</p>
+<pre><code>$ cat months.txt 
+# English months
+Jan
+Feb
+Mar
+Apr
+May
+Jun
+Jul
+Aug
+Sep
+Oct
+Nov
+Dec</code></pre>
+<p>This change hasn't actually been committed yet, so the most recent commit still has <code>months.txt</code> in it. To commit a deletion is just like any other change. Note that the deletion is already staged, so all we have to do is commit it:</p>
+<pre><code>$ git commit -m 'Stopped tracking months.txt'
+[master 13c6a9d] Stopped tracking months.txt
+ 1 file changed, 13 deletions(-)
+ delete mode 100644 months.txt</code></pre>
+<p>Here I used the <code>-m</code> flag to <code>git commit</code> which recall allows me to give a one line message as the next value on the command line. It needs to be in quotes because it contains spaces.</p>
+<p><strong>Here's the crucial bit:</strong> The file is still in this directory on <em>your</em> hard drive, but if you uploaded this repo to GitHub, and someone else cloned the repo, <code>months.txt</code> would <em>not</em> show up for them, unless they checked out and old commit. To put this another way, from Git's point of view, the file has been deleted, but it just hasn't been removed from your hard drive.</p>
+<h3 id="deleting-and-untracking-a-file">Deleting and untracking a file</h3>
+<p>If you want to actually delete a file, we use almost the same command, just without the <code>--cached</code> flag. Let's delete <code>daysofweek.txt</code>:</p>
+<pre><code>$ git rm daysofweek.txt 
+rm 'daysofweek.txt'
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+    deleted:    daysofweek.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt
+</code></pre>
+<p>Unlike last time, if we list the files in our directory, <code>daysofweek.txt</code> will be completely gone:</p>
+<pre><code>$ ls
+months.txt
+
+$ cat daysofweek.txt
+cat: daysofweek.txt: No such file or directory</code></pre>
+<p>However, we can get it back! This will take two steps. First we need to "unstage" the deletion, that is, tell Git we don't want that change to go into the next commit. Then we can actually undo the deletion itself. The first command is <code>git restore --staged daysofweek.txt</code>:</p>
+<pre><code>$ git restore --staged daysofweek.txt</code></pre>
+<p>Now note that it's not actually back yet:</p>
+<pre><code>$ ls
+months.txt
+
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+    deleted:    daysofweek.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p><code>git status</code> tells us that it is deleted, but that deletion isn't staged. It also tells us how to fix that: <code>git restore &lt;file&gt;</code>, so:</p>
+<pre><code>$ git restore daysofweek.txt</code></pre>
+<p>Now if we list our files and check our status:</p>
+<pre><code>$ ls
+daysofweek.txt  months.txt
+
+$ git status
+On branch master
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<h3 id="deleting-and-untracking-a-file-again">Deleting and untracking a file, again</h3>
+<p>You'll notice we used a git command to delete <code>daysofweek</code>: <code>git rm</code>. What if we deleted it without using Git, either through our file brower or regular terminal commands? Well, let's try. We can delete it with <code>rm</code> (just <code>rm</code>, not <code>git rm</code>):</p>
+<pre><code>$ rm daysofweek.txt</code></pre>
+<p>Now if we check the status:</p>
+<pre><code>$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+    deleted:    daysofweek.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p>note that the deletion is "not staged for commit". Git treats a deletion made without its deletion command very much like any other edit to a file: a change that needs added and then committed. To do that, we can use any of our <code>add</code> commands. I'll do this:</p>
+<pre><code>$ git add -u
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+    deleted:    daysofweek.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    months.txt</code></pre>
+<p>Now it's a staged change. Let's commit it:</p>
+<pre><code>$ git commit -m 'Deleted daysofweek.txt'
+[master 6220de2] Deleted daysofweek.txt
+ 1 file changed, 8 deletions(-)
+ delete mode 100644 daysofweek.txt</code></pre>
+<h4 id="deleting-untracked-files">Deleting untracked files</h4>
+<p>If we want to delete untracked files, we need to use our regular methods (file brower or regular <code>rm</code>). If we try to <code>git rm months.txt</code>, which is still in our directory, but untracked, we get:</p>
+<pre><code>$ git rm months.txt 
+fatal: pathspec 'months.txt' did not match any files</code></pre>
+<p>As far as Git is concerns, <code>months.txt</code> doesn't exist any more. If we want to delete it, we'd just do a regular <code>rm</code>:</p>
+<pre><code>$ rm months.txt
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+$ ls
+</code></pre>
+<p>Now both files are gone. What if we wanted to get them back, could we use <code>git restore</code> like before?</p>
+<pre><code>$ git restore months.txt
+error: pathspec 'months.txt' did not match any file(s) known to git
+
+$ git restore --staged months.txt
+error: pathspec 'months.txt' did not match any file(s) known to git</code></pre>
+<p>No and it doesn't matter if we add the <code>--staged</code> flag or not. Because these deletions have been committed, we need to use other tools to retrieve those files if we want them back. Don't worry, that's what we'll cover next!</p>
+<ul>
+<li><a href="6-going-back.html">Next lesson: undoing past commits</a></li>
+<li><a href="4-reviewing-history.html">Previous lesson: reviewing history</a></li>
+</ul>
+
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><b>Part 1, Lesson 5: removing files</b></li>
+<li><a href="6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

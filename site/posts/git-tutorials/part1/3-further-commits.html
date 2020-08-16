@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../../style/posts.css">
+
+  <title>Joshua L. Laughner - Part 1, Lesson 3: making more commits</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-7">
+        <h2 id="part-1-lesson-3-making-more-commits">Part 1, Lesson 3: making more commits</h2>
+<p><strong>Lesson goal:</strong> make another few commits in the repo; learn about the HEAD, index, and working directory.</p>
+<p><strong>Git commands:</strong></p>
+<ul>
+<li><code>git status</code> to check which files have been modified or staged</li>
+<li><code>git add</code> to stage changes for the next commit</li>
+<li><code>git commit</code> to make each commit</li>
+<li><code>git log</code> shows the history of commits made.</li>
+</ul>
+<p><strong>Git concepts:</strong></p>
+<ul>
+<li>The <em>working directory</em> is the copy of the code that is present in the repo.</li>
+<li>The <em>HEAD</em> is the parent commit of the working directory. For now, think of it as the most recent commit - but be prepared to need the proper definition in Part II.</li>
+<li>The <em>index</em> is the collection of files that are ready to go into the next commit but haven't actually been committed yet.</li>
+</ul>
+<p><strong>Downloads:</strong></p>
+<ul>
+<li><a href="./demo-files-l3.zip">The repo from the end of lesson 2</a></li>
+</ul>
+<h3 id="introduction">Introduction</h3>
+<p>In this lesson we're going to look at different ways to make new commits. All of them follow the same pattern. First we <em>stage</em> the changes we want to add to the next commit, that is, tell Git to get ready to commit them. Then we actually make the new commit.</p>
+<h3 id="three-ways-of-making-new-commits">Three ways of making new commits</h3>
+<h4 id="making-commits-with-git-add-git-commit">Making commits with git add + git commit</h4>
+<p>Let's look at where we left off last time. (If you are just starting, download the repo from the end of lesson 2 <a href="./demo-files-l3.zip">here</a>.) In the repo, type <code>git status</code>:</p>
+<pre><code>$ git status
+On branch master
+nothing to commit, working directory clean</code></pre>
+<p>We see that currently there's "nothing to commit" because we've made no changes since the last commit. Let's fix that. In <code>months.txt</code>, every month is abbreviated except June and July. Modify <code>months.txt</code> so that "June" is replaced with "Jun" and "July" with "Jul". It should look like this:</p>
+<pre><code>Jan
+Feb
+Mar
+Apr
+May
+Jun
+Jul
+Aug
+Sept
+Oct
+Nov
+Dec</code></pre>
+<p>Now <code>git status</code> shows:</p>
+<pre><code>$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   months.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<p><code>months.txt</code> has been modified since the last commit. To make a new commit that saves these changes, we need to stage the modified version of <code>months.txt</code> with <code>git add</code>:</p>
+<pre><code>$ git add months.txt
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    modified:   months.txt</code></pre>
+<p>The status message has changed slightly, indicating the <code>months.txt</code> is ready to be committed. To make the commit, use <code>git commit</code>. This will open a text editor like last time. Give a brief one-line description of the commit we're about to make, like:</p>
+<pre><code>Abbreviate June and July in months.txt
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#       modified:   months.txt
+#</code></pre>
+<p>Save the message and exit the text editor to get a message like:</p>
+<pre><code>[master e8e99aa] Abbreviate June and July in months.txt
+ 1 file changed, 2 insertions(+), 2 deletions(-)</code></pre>
+<p>telling us that we changed 2 lines in one file. (Git sees a change to a line as deleting the old line and inserting a new one, so in this case "2 insertions, 2 deletions" corresponds to modifying two lines.)</p>
+<p>At this point, let's look at the log to see the two commits we've made:</p>
+<pre><code>$ git log
+commit 09685d8b8ed5125ba9a0be61eb73a91c03cab82d
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:02:40 2019 -0700
+
+    Abbreviate June and July in months.txt
+
+commit e8e99aa950bdf3f357ebb1acf2137720928fe1ca
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:02:32 2019 -0700
+
+    Added daysofweek.txt and months.txt</code></pre>
+<p>For now, don't worry too much about the details of the log. We'll go through it in more detail in Lesson 4.</p>
+<h4 id="staging-all-changes-with-git-add--u">Staging all changes with git add -u</h4>
+<p>For this next option, let's modify both files. In <code>months.txt</code>, change "Sept" to "Sep" so that all the month use three letter abbreviations. In <code>daysofweek.txt</code>, change all the days to use three letter abbreviations:</p>
+<p><strong>months.txt:</strong></p>
+<pre><code>Jan
+Feb
+Mar
+Apr
+May
+Jun
+Jul
+Aug
+Sep
+Oct
+Nov
+Dec</code></pre>
+<p><strong>daysofweek.txt:</strong></p>
+<pre><code>Sun
+Mon
+Tue
+Wed
+Thu
+Fri
+Sat</code></pre>
+<p>Let's also create a third file, which we won't commit, but will use to demonstrate something. I did:</p>
+<p><strong>hello.txt:</strong></p>
+<pre><code>Hello world!</code></pre>
+<p><code>git status</code> now shows that we have two files with changes and one "untracked" file:</p>
+<pre><code>$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   daysofweek.txt
+    modified:   months.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    hello.txt</code></pre>
+<blockquote>
+<p><strong>Untracked files:</strong></p>
+<p>As far as Git is concerned, untracked files barely exist. If someone "clones" your repository (we'll discuss in Part III, but basically this is using Git to make a new copy of a repo), they won't get any of the untracked files.</p>
+</blockquote>
+<p>For this example, let's say we want to commit the changes to <code>months.txt</code> and <code>daysofweek.txt</code> but <em>not</em> start tracking the new file, <code>hello.txt</code>. We could stage only the files we want with <code>git add months.txt daysofweek.txt</code>, but if we had dozen of files this would get tedious. We <em>can't</em> use <code>git add *.txt</code> or <code>git add .</code> now, because that would add <code>hello.txt</code> too.</p>
+<p>Instead, we can use <code>git add -u</code>:</p>
+<pre><code>$ git add -u
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    modified:   daysofweek.txt
+    modified:   months.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    hello.txt</code></pre>
+<p>Notice that <code>daysofweek.txt</code> and <code>months.txt</code> were staged, but not <code>hello.txt</code>. The <code>-u</code> flag tells <code>git add</code> to add changes to any already tracked files. Go ahead and commit with <code>git commit</code>, and try your hand at making your own commit message.</p>
+<h4 id="commits-in-one-step-with-git-commit--a">Commits in one step with git commit -a</h4>
+<p>One more way to make commits: you can skip <code>git add</code> by doing <code>git commit -a</code>. This is the equivalent of <code>git add -u</code> immediately followed by <code>git commit</code> - the <code>-a</code> flag stands for "all" meaning "go ahead and commit all pending changes." To test it out, let's modify <code>daysofweek.txt</code> to put Sunday at the end:</p>
+<p><strong>daysofweek.txt:</strong></p>
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    modified:   daysofweek.txt
+    modified:   months.txt
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   daysofweek.txt
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    hello.txt
+
+$ git commit -a
+[master 4cc58be] Put Sunday at the end of the week
+ 2 files changed, 8 insertions(+), 8 deletions(-)</code></pre>
+<p>Now if we look at the log we see:</p>
+<pre><code>$ git log
+commit 4cc58beaa6c7c2fea045210a482bd28ed768a223
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:22:43 2019 -0700
+
+    Put Sunday at the end of the week
+
+commit 50be39ace1af0c9b332dabdc5877bfde092984ed
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:22:24 2019 -0700
+
+    Changed all days and months to 3 letter abbreviations
+
+commit 09685d8b8ed5125ba9a0be61eb73a91c03cab82d
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:02:40 2019 -0700
+
+    Abbreviate June and July in months.txt
+
+commit e8e99aa950bdf3f357ebb1acf2137720928fe1ca
+Author: Josh Laughner &lt;me@dummy.com&gt;
+Date:   Mon Jul 8 23:02:32 2019 -0700
+
+    Added daysofweek.txt and months.txt</code></pre>
+<h4 id="pass-the-commit-message-on-the-command-line">Pass the commit message on the command line</h4>
+<p>One flag to <code>git commit</code> that I rarely use outside of tutorials is <code>-m</code>. This lets you pass the commit message as the next value on the command line. For example, I could have made the above commit in one line with <code>git commit -a -m 'Put Sunday at the end of the week'</code>. Note that the message will just be the one line, and it needs to be in quotes.</p>
+<p>I usually don't use this in practice - it precludes writing more detailed messages. But for tutorials it's useful because everything can be done on the command line, so the commands are clearer.</p>
+<h3 id="extra-thoughts">Extra thoughts</h3>
+<p>If you want to go on to Lesson 3 and start learning about diffs and more about the log, feel free. The rest of this will be more about good practice, so come back once you're feeling comfortable with the basics and want to refine your usage.</p>
+<h4 id="add-commit-vs.-commit--a">add + commit vs. commit -a</h4>
+<p>I generally never use <code>git commit -a</code>. I prefer <code>git add -u</code> then <code>git commit</code>. I generally consider it good practice to verify what you're about to commit before making the commit, so I like staging my changes, reviewing them with <code>git status</code> (and <code>git diff --cached</code>, see Lesson 4), then committing. I prefer the additional control.</p>
+<h4 id="what-makes-a-good-commit-message">What makes a good commit message</h4>
+<p>So far our commit messages have been very short, because we've haven't been making very many changes. That's fine for this demo repo, but in practice your commit messages are an important part of making a maintainable repo. The messages are the highest level information available when you're trying to understand how the repo evolved over time, so it pays to make them informative.</p>
+<p>The first widely expected rule to formatting your commit messages:</p>
+<ul>
+<li><strong>The first line should be a short summary of the changes introduced by the commit, ideally &lt; 50 characters, definitely &lt;= 72</strong></li>
+</ul>
+<p>The first line is crucial because it gets used by itself often to describe your commit. <code>git log --oneline</code> for instance prints just that first line for each commit.</p>
+<p>The second formatting rule is:</p>
+<ul>
+<li><strong>Wrap the main body of the message to 72 characters.</strong></li>
+</ul>
+<p>When you print <code>git log</code>, is doesn't do any text wrapping. Keeping lines short helps them fit on standard size terminal windows.</p>
+<p>The third generally accepted rule is:</p>
+<ul>
+<li><strong>Describe what was done and why, not how</strong></li>
+</ul>
+<p>It's not worth the time to rehash exactly what changed in the files themselves, because we can go back and see that with commands like <code>git diff</code> and <code>git log -p</code>. It's more useful to explain the big pictue of <em>what</em> change was made and <em>why</em> that change was necessary. Let's look at one of my <a href="https://github.com/CohenBerkeleyLab/AutoWRFChem-Base/commit/9c1e34f08e4763d6fda082d23a3d85939147c9a4">actual commits from a project in my Ph.D.</a>:</p>
+<pre><code>Number of user-friendliness improvements
+
+* namelist.input.template: added the scale_nei_emiss and scale_closest_year options
+  to the chem namelist. These are implemented in commits a263d29 through 52cf5d6 of
+  the WRF-Chem-R2SMH repo (https://github.com/CohenBerkeleyLab/WRF-Chem-R2SMH)
+* PREPINPUT/precheck now checks that mozbcFile has been set i.e. is not a zero-length
+  string; if it is, then the error message for "Cannot find data/$mozbcFile" is very
+  confusing as it looks like its saying that it cannot find the data link.
+* PREPINPUT/prepnei_convert: convert_emiss error messages now correctly give the
+  convert_emiss exit code rather than the real.exe exit code.
+* Many files: modified or added messages before `exit 1` calls to explicitly indicate
+  that the program is aborting.</code></pre>
+<p>Some background: this is a commit from a wrapper I built around the WRF-Chem model, which simulates atmospheric chemistry, to simplify preparing the inputs needed by the model. Let's break down the good and bad in this message (and I promise to only be a <em>little</em> biased).</p>
+<ul>
+<li><p><em>"Number of user-friendliness improvements"</em> - conveys the overall purpose of this commit, which is to make the program more user-friendly.</p></li>
+<li><p><em>"namelist.input.template: ..."</em> - this bullet could be better. If you look at the actual changes for the <code>namelist.input.template</code> file, you'll see that it really is just adding those two options with their default values. In this case the change is so small that the line between "what" and "how" blurs - but, saying <em>why</em> those options were added would have been more helpful.</p></li>
+<li><p><em>"PREPINPUT/precheck..."</em> - this bullet point does a good job on focusing on what/why. The change to this file was to check that the variable <code>mozbcFile</code> actually got a value. Why? If not, then when the program checked to see that it pointed to an actual file, it would not, but the error message would be confusing because the problem isn't that the file doesn't exist, it's that the path to the file was never set.</p></li>
+<li><p><em>"PREPINPUT/prepnei_convert..."</em> - says <em>what</em> but not <em>why</em>, though in this case the <em>why</em> is implied - the wrong exit code was being given, which (if you know about exit codes in bash) means that the user would get the wrong information about why the program failed.</p></li>
+<li><p><em>"Many files:...</em> - this tells us <em>what</em> (added messages before programs exit) and <em>why</em> (to make it clear the program is exiting). This is particularly helpful because in the commit itself you'll see this sort of change in a bunch of files, so it helps to understand that all those changes are working towards one goal.</p></li>
+</ul>
+<h4 id="a-recommended-format-for-commit-messages">A recommended format for commit messages</h4>
+<p>I find when you're starting out it's good to have a more structured recommendation for how to format your commit messages. So here's what I recommend you use as you start out:</p>
+<pre><code>Summary line, &lt; 50 char if possible, definitely &lt;= 72 
+
+[optional] Additional paragraph(s) expanding on what the commit does
+and why it was necessary. These should deal with the commit as a whole.
+
+NEW FILES:
+* Itemize any new files here, for example:
+* daysofweek.txt - a list of days of week added to enforce standard US
+  weekday order.
+* Still focus on why the new files were added and what purpose they serve
+  rather than how they work.
+* If no new files added, skip this section.
+
+MODIFIED FILES:
+* Itemize any modified files here, for example:
+* months.txt: changed so that all months use standard 3-letter 
+  abbreviations.
+* Again, focus on what (high-level) changes were made to each file and
+  why they were necessary.
+* Skip this section if no files modified, though that will be rare.
+
+RENAMED FILES:
+* Enumerate any renames, e.g.:
+* daysofweek.txt -&gt; days_of_week.txt
+* If there was a reason for the rename, mention it
+* Skip this section if no files renamed
+
+DELETED FILES:
+* Enumerate deleted files
+* Skip if no files were deleted</code></pre>
+<p>Early on, I think having a "form" like this to fill out helps structure your ideas and makes sure you cover everything important. As you get more experience writing (and reading) commit messages, you will probably find yourself relaxing this strict format.</p>
+<p>Some other people's thoughts on formatting commit messages:</p>
+<ul>
+<li><a href="https://chris.beams.io/posts/git-commit/">How to write a Git commit - Chris Beams</a></li>
+<li><a href="https://wiki.openstack.org/wiki/GitCommitMessages#Information_in_commit_messages">Git commit messages - OpenStack</a></li>
+</ul>
+<h4 id="when-to-commit">When to commit?</h4>
+<p>First the practical advice. When you're first starting out, I recommend that you force yourself to make commits when:</p>
+<ol style="list-style-type: decimal">
+<li>The end of the work day is coming up. Make a new commit that records all the changes you made that day, with a nice message describing why you made those changes.</li>
+<li>You're about to make a change that might break currently working code.</li>
+</ol>
+<p>As you get more experience working with Git, you'll find yourself looking back through the history with moments of "Argh, why didn't I break this up better?" Embrace those moments as learning opportunities.</p>
+<p>Now, the Platonic ideal is that you would make a commit for each conceptual change. Put another way, each commit should have a purpose:</p>
+<ul>
+<li>Fixing a bug in calculating the daily mean temperature when there's NaNs in the record.</li>
+<li>Speeding up execution of a particular part of the code.</li>
+<li>Adding a function to read in a new sort of data</li>
+</ul>
+<p>This requires a little bit of foreplanning, but really just requires you to be conscious about your goals when you start modifying your code. Assuming you start from a state where there's no pending changes (the "working directory is clean"), ask yourself: "What am I trying to accomplish with this change?" That will probably be the first line of your commit message once it's done.</p>
+<p>As you work on the code, ask yourself about every 15-30 minutes "What goal am I working towards now?" If it has changed since you started, imagine your were explaining the changes you made to someone else who uses the code. Are both your original and current goal close enough that you would explain them together? If so, keep working. If not, finish the first goal, make sure it works, then commit those changes.</p>
+<ul>
+<li><a href="4-reviewing-history.html">Next lesson: reviewing your commit history</a></li>
+<li><a href="2-setup-and-first-commit.html">Previous lesson: setup and first commit</a></li>
+</ul>
+
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><b>Part 1, Lesson 3: making more commits</b></li>
+<li><a href="4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

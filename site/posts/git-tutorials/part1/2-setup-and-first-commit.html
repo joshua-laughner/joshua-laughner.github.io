@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../../style/posts.css">
+
+  <title>Joshua L. Laughner - Part 1, Lesson 2: creating a repo and making the first commit</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-7">
+        <h2 id="part-1-lesson-2-creating-a-repo-and-making-the-first-commit">Part 1, Lesson 2: creating a repo and making the first commit</h2>
+<p><strong>Lesson goal:</strong> initialize our repository and make the initial commit</p>
+<p><strong>Git commands:</strong></p>
+<ul>
+<li><code>git config</code> sets Git configuration options</li>
+<li><code>git init</code> turns a directory into a git repository</li>
+<li><code>git status</code> prints the status of the repository (i.e. which files are tracked, changed, etc.)</li>
+<li><code>git add</code> marks which files to track</li>
+<li><code>git commit</code> makes a commit</li>
+</ul>
+<p><strong>Git concepts:</strong></p>
+<ul>
+<li>A <em>repository</em> is a folder where Git can track changes to files in it or a subdirectory. Called a <em>repo</em> for short.</li>
+<li>A <em>commit</em> is a snapshot of the state of the tracked files in the repository at a given moment in time.</li>
+</ul>
+<p><strong>Downloads:</strong></p>
+<ul>
+<li><a href="./demo-files.zip">Demo directory</a></li>
+</ul>
+<h3 id="initializing-a-repository">Initializing a repository</h3>
+<p>Git can't track just any file on your computer; it can only track files inside <em>repositories</em>. A repository is just a directory on your computer in which Git may track files. Any files in subdirectories of the repository are also trackable.</p>
+<p>For Part I, we're going to have examples that use the two plain text files in the <a href="./demo-files.zip">demo directory</a>. Download the .zip file and decompress it, then open a terminal window in the <code>demo-files</code> folder created by decompressing it.</p>
+<p>At the moment, this is not a repository, it is just a folder with two text files. To make it a repo, type the command <code>git init</code> while inside the <code>demo-files</code> folder.</p>
+<pre><code>$ git init
+Initialized empty Git repository in /home/josh/git-tutorials/part1/demo-files/.git/</code></pre>
+<p>The message indicates that a repository was successfully started in <code>demo-files</code>. If you look for hidden files, you will see that a <code>.git</code> folder was created within <code>demo-files</code>. This hidden folder contains all the data that Git needs to keep track of the history of this repository. It's generally a good idea to leave the contents of this folder alone.</p>
+<p><strong>Note:</strong> you only ever have to do <code>git init</code> in a folder once. In other words, you'll never use <code>git init</code> in an existing repo. You will use it once for each repo you create.</p>
+<h3 id="adding-files.">Adding files.</h3>
+<p>When you initialize a repository, Git does not track any files at first. We can see this with the <code>git status</code> command:</p>
+<pre><code>$ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    daysofweek.txt
+    months.txt
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>There's a few pieces here, but we're interested in the "Untracked files" section. This tells us that Git sees two files (<code>daysofweek.txt</code> and <code>months.txt</code>) but it is not recording change to them yet. It also tells us we can use <code>git add</code> to track them.</p>
+<blockquote>
+<p><strong>Why not track all files?</strong></p>
+<p>There's many reasons why you might not want to track certain files. Maybe this repository is intended to keep track of code used to process data from a spectrometer, but not the data from the spectrometer itself, but it's convenient to keep that data near the code so it's easy to access. Or perhaps the code generates some plots automatically as a quick check for you when it processes data, and the plots aren't relevant to the history of the code. It's cleaner to leave those irrelevant files untracked.</p>
+</blockquote>
+<p>Let's go ahead and add these two text files. Still in the <code>demo-files</code> folder, do:</p>
+<pre><code>$ git add daysofweek.txt months.txt 
+$ git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+    new file:   daysofweek.txt
+    new file:   months.txt</code></pre>
+<p>The status now tells use that <code>daysofweek.txt</code> and <code>months.txt</code> will be included in the next commit. It tells us that they are "new files" (this is opposed to modified or deleted files, which we will encounter later).</p>
+<blockquote>
+<p><strong>git add is flexible</strong></p>
+<p>Specifying each file name is fine when there's only two, but much less fine when there's 20. Fortunately there's other ways to specify files. You can use <a href="https://en.wikipedia.org/wiki/Glob_%28programming%29">shell glob patterns</a> to match a bunch of files. We could have done <code>git add *.txt</code> to match both files here. Alternately, you can do <code>git add .</code> which means "add everything in the directory". If there's a small minority of files you don't want tracked, it may be easier to do <code>git add .</code> then use <code>git rm --cached</code> to untrack those few files.</p>
+</blockquote>
+<h3 id="setting-up-your-user-information">Setting up your user information</h3>
+<p>We're almost ready to make our first commit, but before we do that, we need to set some information that will be included in the commit message, namely our name and email. To do this we use <code>git config</code>:</p>
+<pre><code>$ git config --global user.name "Josh Laughner"
+$ git config --global user.email "me@dummy.com"</code></pre>
+<p>The <code>--global</code> flag means that this configuration option will be stored and reused by default for any Git repo on this computer. the <code>user.name</code> or <code>user.email</code> is the option that we're setting and the part in quotes at the end is the value we're assigning it.</p>
+<blockquote>
+<p><strong>Which email to use?</strong></p>
+<ol style="list-style-type: decimal">
+<li>If you're planning on eventually putting this repo on GitHub, use the email you have/will create your account with, so that GitHub can connect the commits to the right user.</li>
+<li>Use an email you don't mind being publicly visible, in case you ever do put the repo online.</li>
+<li>Use an email you'll have long-term access to. If you lose access to a university email after graduation, for instance, then using that means anyone who comes across the code later won't be able to reach you.</li>
+</ol>
+</blockquote>
+<p><strong>Note:</strong> you'll only have to do this part <em>once per computer you use Git on</em>. If you create more repos on this computer you <em>don't</em> need to repeat this step. But you can redo it if you want to change the email/name associated with your commits.</p>
+<h3 id="making-the-commit">Making the commit</h3>
+<p>Okay, let's commit these new files! To do that, we just need the command <code>git commit</code>. This will create a new commit that record the fact that we added these two files to be tracked. A commit is basically a snapshot of your repository. If we ever come back to this commit, we'll see these files exactly how they are now, no matter what changes we make later.</p>
+<p>Once you run <code>git commit</code>, it will open up a text editor inside the terminal. The most likely one for it to use is <code>vi</code> or <code>vim</code>, which will look like:</p>
+<pre><code>
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#       new file:   daysofweek.txt
+#       new file:   months.txt
+#
+~
+~
+~
+~</code></pre>
+<p>Alternately, your computer may use <code>nano</code> instead, which will look like this:</p>
+<pre><code>
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#       new file:   daysofweek.txt
+#       new file:   months.txt
+#
+
+                          [ Read 11 lines ]
+^G Get Help    ^O Write Out   ^W Where Is    ^K Cut Text    ^J Justify
+^X Exit        ^R Read File   ^\ Replace     ^U Uncut Text  ^T To Spell</code></pre>
+<p>This gives us a chance to enter a message describing the purpose of this commit. A good commit message starts with a single line, &lt; 80 characters long, that summarizes the commit, then goes into more detail as necessary. (I'll describe a format I used early on in Lesson 3.) Note that, as it says, any line beginning with "#" will not be included in the commit message, so none of the initial text gets included; it's just there for your reference. In this case, there's not much to say, so I made my message a single line: "Added daysofweek.txt and months.txt". To finalize the commit, we need to "save" the file (in vi/vim: press <code>ESC</code> then type <code>:wq</code> and press <code>ENTER</code>; in nano press <code>CTRL-O</code> then <code>CTRL-X</code>). Done correctly you will get a message similar to:</p>
+<pre><code>[master (root-commit) 09685d8] Added daysofweek.txt and months.txt
+ 2 files changed, 19 insertions(+)
+ create mode 100644 daysofweek.txt
+ create mode 100644 months.txt</code></pre>
+<p>The first line gives some information about the commit we just made:</p>
+<ul>
+<li>The branch we're on ("master")</li>
+<li>That this is the first commit in this repo on this branch ("root-commit")</li>
+<li>The abbreviated commit hash ("90dc0ec"), which is a unique identifier for this commit.</li>
+<li>The first line of our commit message</li>
+</ul>
+<p>The rest tells us that two files were "changed" (added in this case) with 19 total lines added.</p>
+<p>If we do one last <code>git status</code> we'll now see:</p>
+<pre><code>$ git status
+On branch master
+nothing to commit, working directory clean</code></pre>
+<p>This tells us that there are no untracked files and no changes to tracked files since the last commit.</p>
+<blockquote>
+<p><strong>Changing the default editor</strong></p>
+<p>First time terminal users will probably find nano easier to use than vi or vim. If your computer is defaulting to the latter, and you want it to use the former, you can configure this with:</p>
+<pre><code>$ git config --global core.editor nano</code></pre>
+<p>assuming that nano is installed on your computer. Windows uses working in the Git terminal may be out of luck.</p>
+</blockquote>
+<h3 id="summary">Summary</h3>
+<p>In this lesson we covered how to initialize a repo and make the first commit. In the next lesson, we'll practice creating more commits and learn about the difference between the HEAD, index, and working directory.</p>
+<ul>
+<li><a href="3-further-commits.html">Next lesson: more on commits</a></li>
+</ul>
+
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><b>Part 1, Lesson 2: creating a repo and making the first commit</b></li>
+<li><a href="3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>
