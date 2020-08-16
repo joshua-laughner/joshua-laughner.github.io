@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../style/posts.css">
+
+  <title>Joshua L. Laughner - What Julia can and can't replace about Fortran</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-7">
+        <h2 id="what-julia-can-and-cant-replace-about-fortran">What Julia can and can't replace about Fortran</h2>
+<p>The first time I tried to use Julia for a significant research project, I found it somewhat frustrating. And it took me a long time to understand why. Since it has been touted as a replacement for Fortran and compiled languages in general (at least for scientific applications), I assumed that it would replicate <em>all</em> the important features of those languages. To me, those are:</p>
+<ol style="list-style-type: decimal">
+<li>Fast execution</li>
+<li>Strong type checking</li>
+</ol>
+<p>And, while Julia does meet the first one, it doesn't do the second one completely. It seems like it does though, and that's what was bothering me about it.</p>
+<h3 id="whats-the-big-deal-about-type-checking">What's the big deal about type checking?</h3>
+<p>In a language like C, when you define a function, you also define what types a function accepts and returns. For example, something like:</p>
+<pre><code>float compute_potential_temperature(float t, float p){
+    return t * pow(1000/p, 0.286);
+}</code></pre>
+<p>will <em>only</em> accept floats for temperature and pressure. In contrast, in dynamically typed languaged (like Python, Matlab, or - kind of - Julia), you wouldn't declare types. It's perfectly valid to have</p>
+<pre><code>function compute_potential_temperature(t, p)
+    return t * (1000/p)^0.286;
+end</code></pre>
+<p>in Julia and allow <code>t</code> and <code>p</code> to be whatever type you wish. This is great when you're using code to do analysis - you write one function that can theoretically take <code>t</code> and <code>p</code> in as scalars, arrays, maybe even dataframes or other complex datatypes. As long as the language knows how to do the operations required (here multiplication, division, and exponentiation), the function will work.</p>
+<p>The problem comes when your program gets bigger and bigger. For small programs, it's easy (well, mostly) to keep track of what type every variable is and what types work for each function. When the program gets very large, that becomes an impossible task, which leads to at least one of the problems:</p>
+<ol style="list-style-type: decimal">
+<li><strong>You have to try to consider every possible type that could be passed into this function.</strong> You may have written this function originally to handle scalar floats, but what happens if it gets two arrays? Two dataframes? A float and a dataframe? Strings? Trying to make something flexible enough to handle any reasonable type <em>but</em> error (rather than silently do something stupid) with unreasonable types is hard.</li>
+<li><strong>There's some weird edge case that passes the wrong type into this function.</strong> Maybe you're loading data from a file and this function is only called if potential temperature isn't written in the file. If there's a silly mistake in that call that, say passes a variable name instead of value, you'll only get the error if you test it on a file that doesn't include potential temperature.</li>
+</ol>
+<p>Strong type checking solves both of these problems. First, a function can only get the types you declare, so you only have to worry about how those types interact. Second, a strongly typed language can have all code paths checked when you compile it. So if you accidentally gave this function a string when it expected a float, you'll get an error before you ever run the program. For big programs, this kind of checking can be a life saver.</p>
+<h3 id="doesnt-julia-do-this">Doesn't Julia do this?</h3>
+<p>Ah, here's where it gets sticky. You <em>can</em> declare input and output types in Julia. This function</p>
+<pre><code>function compute_potential_temperature(t::Float64, p::Float64)::Float64
+    return t * (1000/p)^0.286;
+end</code></pre>
+<p>must receive 64 bit floats and will return one as well. However there's a big difference: when this is checked. In C, if I wrote</p>
+<pre><code>float pt;
+if !pt_in_file{
+    pt = compute_potential_temperature("temperature", 1013.25);
+}</code></pre>
+<p>the compiler would catch right away if there is no function named "compute_potential_temperature" that accepts one string and one float and returns one float.</p>
+<p>In Julia, the compiler doesn't check that. It waits <em>until the function is called during execution</em> and only then checks to see if it knows of a version of <code>compute_potential_temperature</code> that accepts a string as the first argument. So if <code>pt_in_file</code> is never false during testing, you'll never know this bug exists.</p>
+<p>In short, Julia's typing system can solve problem #1 (having to consider every possible type) but <em>not</em> problem #2 (wrong type in an edge case).</p>
+<h3 id="isnt-that-better-than-nothing">Isn't that better than nothing?</h3>
+<p>It would be, <em>if</em> Julia was designed around the idea of optional typing - if the type declarations were meant to support type safety. But they're not. They're there, as far as I can tell, to help optimize compiling (by limiting what types the function needs to support) and to let you customize behavior for different types. For instance, you could have:</p>
+<pre><code>function compute_potential_temperature(t::DataFrame, p::DataFrame)::DataFrame
+    ...
+end
+
+function compute_potential_temperature(t::Number, p::Number)::Number
+    return t * (1000/p)^0.286;
+end</code></pre>
+<p>Now if you call <code>compute_potential_temperature</code> with two data frames, it'll use the first one, which could have some extra logic to make sure the data frame indices are aligned. The second one will be called if you pass any regular kind of number.</p>
+<p>The trap I fell into was trying to use it to restrict the types of all my functions. That works okay for simple types, but then when I got to compound types I ended up with monstricities like this:</p>
+<pre><code>function _setup_unit_aliases(extra_aliases::AbstractDict{&lt;:AbstractString, &lt;:AbstractArray{&lt;:AbstractString,1}}, extra_alias_files::Nothing)
+    ...
+end</code></pre>
+<p>Half of that line is just the type for <code>extra_aliases</code>, and getting all of that right is a nightmare. But, because I saw Julia as a replacement for C or Fortran, I kept trying to force it to behave like that in all ways, including ways it was never intended to act. It took until I learned <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a>, which <em>is</em> designed to do strict type checking, that I realized my expectations for Julia were out of sync with its design, which is why I was so frustrated with it.</p>
+<h3 id="so-what-youre-saying-is...">So what you're saying is...?</h3>
+<p>Julia is a great language to use for a project which demands heavy computation, but is small enough that losing strong, ahead-of-time type checking isn't a major drawback. Often this means that it's something that really won't be distributed outside of one group. But if you're developing a community project, one that will be used by people outside your group, having that extra type checking in Fortran or C is still valuable. Julia isn't a catch-all replacement for Fortran or C; it's best for tackling those intermediate projects that are too hefty to do efficiently in Python or Matlab, but small enough to benefit from flexibility more than be hurt by it.</p>
+
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <div class="post-toc">
+              <ul>
+<li>Julia</li>
+<ul>
+<li><b>What Julia can and can't replace about Fortran</b></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

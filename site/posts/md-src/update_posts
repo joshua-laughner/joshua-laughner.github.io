@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/josh/anaconda3/envs/website-tools/bin/python -m mksite.mkposts $@ posts.yml

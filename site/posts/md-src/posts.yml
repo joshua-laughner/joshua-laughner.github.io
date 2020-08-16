@@ -1,0 +1,9 @@
+global:
+    output_dir: "../"
+    template_file: "templates/post.html.jinja"
+    make_subdirs: true
+
+md_contents:
+    - Julia:
+        - "julia-misunderstood.md"
+       
