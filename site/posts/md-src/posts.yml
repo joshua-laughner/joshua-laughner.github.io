@@ -16,4 +16,9 @@ md_contents:
             - "git-tutorials/part1/6-going-back.md"
     - Julia:
         - "julia-misunderstood.md"
-       
+
+tag_attrs:
+    img:
+        class: "post-img"
+    figcaption:
+        class: "hidden"    

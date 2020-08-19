@@ -61,7 +61,7 @@
               <div class="panel-body post-toc"><ul>
 <li>Version control (general)</li>
 <ul>
-<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
 </ul>
 <li>Git version control</li>
 <ul>
@@ -77,7 +77,7 @@
 </ul>
 <li>Julia</li>
 <ul>
-<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
 </ul>
 </ul>
 </div>
@@ -114,18 +114,18 @@
 </ul>
 <h3 id="introduction">Introduction</h3>
 <p>In Git, when we say we want to delete or remove a file, we can mean one of three things:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Stop tracking the file for future commits, but keep the file itself and keep it in previous commits</li>
 <li>Actually remove the file and stop tracking, but keep it in previous commits</li>
 <li>Purge the file from the entire repo, including past commits.</li>
 </ol>
-<p>I'm not going to talk about the third case here, it's extremely rare that you need to do that and usually only applied if you've accidentally tracked sensitive data (like medical history or classified documents) or have a large data file tracked that's preventing you from uploading to a remote. If you do need it, GitHub has <a href="https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository#purging-a-file-from-your-repositorys-history">help on that</a>.</p>
-<p>Here we're going to go through the first two cases. <strong>The most important thing to know is that as long as you've committed a file at least once, it will remain in the repo.</strong> Deleting a file just means it won't show up in your working directory, not that it's gone from the repo entirely.</p>
+<p>I’m not going to talk about the third case here, it’s extremely rare that you need to do that and usually only applied if you’ve accidentally tracked sensitive data (like medical history or classified documents) or have a large data file tracked that’s preventing you from uploading to a remote. If you do need it, GitHub has <a href="https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository#purging-a-file-from-your-repositorys-history">help on that</a>.</p>
+<p>Here we’re going to go through the first two cases. <strong>The most important thing to know is that as long as you’ve committed a file at least once, it will remain in the repo.</strong> Deleting a file just means it won’t show up in your working directory, not that it’s gone from the repo entirely.</p>
 <h3 id="untracking-a-file">Untracking a file</h3>
-<p>This is actually the less used case. If you want to be able to still access the file, but just don't want it to be in future commits, you'd use <code>git rm --cached</code>. Let's see that in action. Suppose we want to stop tracking <code>months.txt</code>. In our repo, we'd do:</p>
+<p>This is actually the less used case. If you want to be able to still access the file, but just don’t want it to be in future commits, you’d use <code>git rm --cached</code>. Let’s see that in action. Suppose we want to stop tracking <code>months.txt</code>. In our repo, we’d do:</p>
 <pre><code>$ git rm --cached months.txt
 rm 'months.txt'</code></pre>
-<p>Now if you do <code>git status</code> you'll see:</p>
+<p>Now if you do <code>git status</code> you’ll see:</p>
 <pre><code>$ git status
 On branch master
 Changes to be committed:
@@ -135,7 +135,7 @@ Changes to be committed:
 Untracked files:
   (use "git add &lt;file&gt;..." to include in what will be committed)
     months.txt</code></pre>
-<p>Notice that under "Changes to be committed" it lists <code>months.txt</code> as deleted. But, it also shows up in "Untracked files." If you list the files in this directory, you'll still see it:</p>
+<p>Notice that under “Changes to be committed” it lists <code>months.txt</code> as deleted. But, it also shows up in “Untracked files.” If you list the files in this directory, you’ll still see it:</p>
 <pre><code>$ ls
 daysofweek.txt  months.txt</code></pre>
 <p>and you can still view its contents:</p>
@@ -153,15 +153,15 @@ Sep
 Oct
 Nov
 Dec</code></pre>
-<p>This change hasn't actually been committed yet, so the most recent commit still has <code>months.txt</code> in it. To commit a deletion is just like any other change. Note that the deletion is already staged, so all we have to do is commit it:</p>
+<p>This change hasn’t actually been committed yet, so the most recent commit still has <code>months.txt</code> in it. To commit a deletion is just like any other change. Note that the deletion is already staged, so all we have to do is commit it:</p>
 <pre><code>$ git commit -m 'Stopped tracking months.txt'
 [master 13c6a9d] Stopped tracking months.txt
  1 file changed, 13 deletions(-)
  delete mode 100644 months.txt</code></pre>
 <p>Here I used the <code>-m</code> flag to <code>git commit</code> which recall allows me to give a one line message as the next value on the command line. It needs to be in quotes because it contains spaces.</p>
-<p><strong>Here's the crucial bit:</strong> The file is still in this directory on <em>your</em> hard drive, but if you uploaded this repo to GitHub, and someone else cloned the repo, <code>months.txt</code> would <em>not</em> show up for them, unless they checked out and old commit. To put this another way, from Git's point of view, the file has been deleted, but it just hasn't been removed from your hard drive.</p>
+<p><strong>Here’s the crucial bit:</strong> The file is still in this directory on <em>your</em> hard drive, but if you uploaded this repo to GitHub, and someone else cloned the repo, <code>months.txt</code> would <em>not</em> show up for them, unless they checked out and old commit. To put this another way, from Git’s point of view, the file has been deleted, but it just hasn’t been removed from your hard drive.</p>
 <h3 id="deleting-and-untracking-a-file">Deleting and untracking a file</h3>
-<p>If you want to actually delete a file, we use almost the same command, just without the <code>--cached</code> flag. Let's delete <code>daysofweek.txt</code>:</p>
+<p>If you want to actually delete a file, we use almost the same command, just without the <code>--cached</code> flag. Let’s delete <code>daysofweek.txt</code>:</p>
 <pre><code>$ git rm daysofweek.txt 
 rm 'daysofweek.txt'
 
@@ -181,9 +181,9 @@ months.txt
 
 $ cat daysofweek.txt
 cat: daysofweek.txt: No such file or directory</code></pre>
-<p>However, we can get it back! This will take two steps. First we need to "unstage" the deletion, that is, tell Git we don't want that change to go into the next commit. Then we can actually undo the deletion itself. The first command is <code>git restore --staged daysofweek.txt</code>:</p>
+<p>However, we can get it back! This will take two steps. First we need to “unstage” the deletion, that is, tell Git we don’t want that change to go into the next commit. Then we can actually undo the deletion itself. The first command is <code>git restore --staged daysofweek.txt</code>:</p>
 <pre><code>$ git restore --staged daysofweek.txt</code></pre>
-<p>Now note that it's not actually back yet:</p>
+<p>Now note that it’s not actually back yet:</p>
 <pre><code>$ ls
 months.txt
 
@@ -200,7 +200,7 @@ Untracked files:
     months.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
-<p><code>git status</code> tells us that it is deleted, but that deletion isn't staged. It also tells us how to fix that: <code>git restore &lt;file&gt;</code>, so:</p>
+<p><code>git status</code> tells us that it is deleted, but that deletion isn’t staged. It also tells us how to fix that: <code>git restore &lt;file&gt;</code>, so:</p>
 <pre><code>$ git restore daysofweek.txt</code></pre>
 <p>Now if we list our files and check our status:</p>
 <pre><code>$ ls
@@ -214,7 +214,7 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)</code></pre>
 <h3 id="deleting-and-untracking-a-file-again">Deleting and untracking a file, again</h3>
-<p>You'll notice we used a git command to delete <code>daysofweek</code>: <code>git rm</code>. What if we deleted it without using Git, either through our file brower or regular terminal commands? Well, let's try. We can delete it with <code>rm</code> (just <code>rm</code>, not <code>git rm</code>):</p>
+<p>You’ll notice we used a git command to delete <code>daysofweek</code>: <code>git rm</code>. What if we deleted it without using Git, either through our file brower or regular terminal commands? Well, let’s try. We can delete it with <code>rm</code> (just <code>rm</code>, not <code>git rm</code>):</p>
 <pre><code>$ rm daysofweek.txt</code></pre>
 <p>Now if we check the status:</p>
 <pre><code>$ git status
@@ -229,7 +229,7 @@ Untracked files:
     months.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
-<p>note that the deletion is "not staged for commit". Git treats a deletion made without its deletion command very much like any other edit to a file: a change that needs added and then committed. To do that, we can use any of our <code>add</code> commands. I'll do this:</p>
+<p>note that the deletion is “not staged for commit”. Git treats a deletion made without its deletion command very much like any other edit to a file: a change that needs added and then committed. To do that, we can use any of our <code>add</code> commands. I’ll do this:</p>
 <pre><code>$ git add -u
 
 $ git status
@@ -241,7 +241,7 @@ Changes to be committed:
 Untracked files:
   (use "git add &lt;file&gt;..." to include in what will be committed)
     months.txt</code></pre>
-<p>Now it's a staged change. Let's commit it:</p>
+<p>Now it’s a staged change. Let’s commit it:</p>
 <pre><code>$ git commit -m 'Deleted daysofweek.txt'
 [master 6220de2] Deleted daysofweek.txt
  1 file changed, 8 deletions(-)
@@ -250,7 +250,7 @@ Untracked files:
 <p>If we want to delete untracked files, we need to use our regular methods (file brower or regular <code>rm</code>). If we try to <code>git rm months.txt</code>, which is still in our directory, but untracked, we get:</p>
 <pre><code>$ git rm months.txt 
 fatal: pathspec 'months.txt' did not match any files</code></pre>
-<p>As far as Git is concerns, <code>months.txt</code> doesn't exist any more. If we want to delete it, we'd just do a regular <code>rm</code>:</p>
+<p>As far as Git is concerns, <code>months.txt</code> doesn’t exist any more. If we want to delete it, we’d just do a regular <code>rm</code>:</p>
 <pre><code>$ rm months.txt
 
 $ git status
@@ -265,7 +265,7 @@ error: pathspec 'months.txt' did not match any file(s) known to git
 
 $ git restore --staged months.txt
 error: pathspec 'months.txt' did not match any file(s) known to git</code></pre>
-<p>No and it doesn't matter if we add the <code>--staged</code> flag or not. Because these deletions have been committed, we need to use other tools to retrieve those files if we want them back. Don't worry, that's what we'll cover next!</p>
+<p>No and it doesn’t matter if we add the <code>--staged</code> flag or not. Because these deletions have been committed, we need to use other tools to retrieve those files if we want them back. Don’t worry, that’s what we’ll cover next!</p>
 <ul>
 <li><a href="6-going-back.html">Next lesson: undoing past commits</a></li>
 <li><a href="4-reviewing-history.html">Previous lesson: reviewing history</a></li>
@@ -277,7 +277,7 @@ error: pathspec 'months.txt' did not match any file(s) known to git</code></pre>
               <ul>
 <li>Version control (general)</li>
 <ul>
-<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
 </ul>
 <li>Git version control</li>
 <ul>
@@ -293,7 +293,7 @@ error: pathspec 'months.txt' did not match any file(s) known to git</code></pre>
 </ul>
 <li>Julia</li>
 <ul>
-<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
 </ul>
 </ul>
 

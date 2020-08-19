@@ -70,7 +70,7 @@ of Git. I also have written up a series of smaller posts covering more specific 
 * [Lesson 2: Creating a repo and making the first commit](part1/2-setup-and-first-commit.html)
 * [Lesson 3: Making additional commits, and understanding the HEAD, index, and working directory](part1/3-further-commits.html)
 * [Lesson 4: Reviewing history with log and diff](part1/4-reviewing-history.html)
-* Lesson 5: Deleting a file vs. stopping tracking
+* [Lesson 5: Deleting a file vs. stopping tracking](part1/5-removing-files.html)
 * [Lesson 6: Revisiting history: going back to old commits and deleting uncommitted changes](part1/6-going-back.html)
 * Lesson 7: Ignoring irrelevant files with .gitignore
 

@@ -61,7 +61,7 @@
               <div class="panel-body post-toc"><ul>
 <li>Version control (general)</li>
 <ul>
-<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
 </ul>
 <li>Git version control</li>
 <ul>
@@ -77,7 +77,7 @@
 </ul>
 <li>Julia</li>
 <ul>
-<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
 </ul>
 </ul>
 </div>
@@ -117,9 +117,9 @@
 <li><a href="./demo-files-l4.zip">The repo from the end of lesson 3</a></li>
 </ul>
 <h3 id="introduction">Introduction</h3>
-<p>In this lesson, we're going to see how to review the history of your Git repo at different levels, all the way from simple summary messages from the commits to viewing every line of code changed throughout the whole history.</p>
+<p>In this lesson, we’re going to see how to review the history of your Git repo at different levels, all the way from simple summary messages from the commits to viewing every line of code changed throughout the whole history.</p>
 <h3 id="the-log">The log</h3>
-<p>The log is the record of all commits in your Git repo. We've already seen this in use. Typing <code>git log</code> now shows the following:</p>
+<p>The log is the record of all commits in your Git repo. We’ve already seen this in use. Typing <code>git log</code> now shows the following:</p>
 <pre><code>commit 4cc58beaa6c7c2fea045210a482bd28ed768a223
 Author: Josh Laughner &lt;me@dummy.com&gt;
 Date:   Mon Jul 8 23:22:43 2019 -0700
@@ -143,7 +143,7 @@ Author: Josh Laughner &lt;me@dummy.com&gt;
 Date:   Mon Jul 8 23:02:32 2019 -0700
 
     Added daysofweek.txt and months.txt</code></pre>
-<p>This shows all four commit in our repo. The most recent is at the top, the oldest at the bottom. If there are more lines than fit in your terminal window, Git will automatically present the log in a <em>pager</em>, which is just a program that lets you scroll through large amounts of text. You'll know if you're in the standard one (<code>less</code>) because a colon will show up in the bottom left corner of your terminal. While in a pager, you can navigate with:</p>
+<p>This shows all four commit in our repo. The most recent is at the top, the oldest at the bottom. If there are more lines than fit in your terminal window, Git will automatically present the log in a <em>pager</em>, which is just a program that lets you scroll through large amounts of text. You’ll know if you’re in the standard one (<code>less</code>) because a colon will show up in the bottom left corner of your terminal. While in a pager, you can navigate with:</p>
 <ul>
 <li>Up/down arrows - move by one line at a time</li>
 <li>Page up/page down - move by a page (screen) at a time</li>
@@ -152,8 +152,8 @@ Date:   Mon Jul 8 23:02:32 2019 -0700
 </ul>
 <h4 id="the-information-in-the-log">The information in the log</h4>
 <p>There are four pieces of information printed for each commit in the log:</p>
-<ol style="list-style-type: decimal">
-<li><p>The commit hash: e.g. <code>commit 4cc58beaa6c7c2fea045210a482bd28ed768a223</code>. The hash is the part that (in this case) starts with <code>4cc58be</code>. This is a unique identifier for the commit that you can use to refer to this commit. We'll use this with <code>git diff</code> later. Note that you usually only need the first 7 or so characters of the hash to identify a commit.</p></li>
+<ol type="1">
+<li><p>The commit hash: e.g. <code>commit 4cc58beaa6c7c2fea045210a482bd28ed768a223</code>. The hash is the part that (in this case) starts with <code>4cc58be</code>. This is a unique identifier for the commit that you can use to refer to this commit. We’ll use this with <code>git diff</code> later. Note that you usually only need the first 7 or so characters of the hash to identify a commit.</p></li>
 <li><p>The person who made the commit. This is the <code>Author</code> line. This is the <code>user.name</code> and <code>user.email</code> values we configured back in Lesson 1-1.</p></li>
 <li><p>The date and time the commit was made. This is always given in the local time of the computer that made the commit, including the time zone (<code>-0700</code> here, which means 7 hours earlier than UTC, which is US Pacific Daylight Savings Time for me).</p></li>
 <li><p>The commit message. All our commit messages were one line, but if they were longer, the full message would be printed.</p></li>
@@ -171,13 +171,13 @@ e8e99aa Added daysofweek.txt and months.txt</code></pre>
 09685d8 Abbreviate June and July in months.txt
 e8e99aa Added daysofweek.txt and months.txt</code></pre>
 <p>All it added was the <code>(HEAD -&gt; master)</code> bit. This tells us that:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>The <code>HEAD</code> (the parent commit of the working directory) is currently pointing to the <code>master</code> branch.</li>
 <li>Both of these references point to commit <code>4cc58be</code>.</li>
 </ol>
-<p>This isn't too useful yet, but if we start moving the <code>HEAD</code> around, either to go back to old commits (<a href="./6-going-back.md">Lesson 1-6</a>) or start working with multiple branches (<a href="../part2/1-basic-branching.md">Lesson 2-1</a>) it will be <em>very</em> helpful to keep track of which commit we're actually working on.</p>
+<p>This isn’t too useful yet, but if we start moving the <code>HEAD</code> around, either to go back to old commits (<a href="./6-going-back.md">Lesson 1-6</a>) or start working with multiple branches (<a href="../part2/1-basic-branching.md">Lesson 2-1</a>) it will be <em>very</em> helpful to keep track of which commit we’re actually working on.</p>
 <h4 id="a-longer-log">A longer log</h4>
-<p>If you want to see <em>all</em> the gory details about how your code has changed, then <code>git log -p</code> is the command you're looking for (the <code>-p</code> stands for <code>--patch</code>):</p>
+<p>If you want to see <em>all</em> the gory details about how your code has changed, then <code>git log -p</code> is the command you’re looking for (the <code>-p</code> stands for <code>--patch</code>):</p>
 <pre><code>commit 09685d8b8ed5125ba9a0be61eb73a91c03cab82d
 Author: Josh Laughner &lt;me@dummy.com&gt;
 Date:   Mon Jul 8 23:02:40 2019 -0700
@@ -237,23 +237,23 @@ index 0000000..90061a3
 +Oct
 +Nov
 +Dec</code></pre>
-<p>I'm just showing the first two commits here for brevity. Each commit starts just like in <code>git log</code>: there's the hash, the author, the date, and the commit message. Then there is the "patch" information, which is a line-by-line description of what changed in each file. There's a few header lines for each file. Looking at the first commit:</p>
+<p>I’m just showing the first two commits here for brevity. Each commit starts just like in <code>git log</code>: there’s the hash, the author, the date, and the commit message. Then there is the “patch” information, which is a line-by-line description of what changed in each file. There’s a few header lines for each file. Looking at the first commit:</p>
 <ul>
-<li><code>diff --git a/daysofweek.txt b/daysofweek.txt</code> indicates which file's diff is being shown.</li>
+<li><code>diff --git a/daysofweek.txt b/daysofweek.txt</code> indicates which file’s diff is being shown.</li>
 <li><code>new file mode 100644</code> does not show up for all files in all commits, this indicates that a new file was added in this commit. There are other special cases, like a file being deleted, that show up here.</li>
-<li><code>index 0000000..716a6ee</code> gives the internal objects that git is actually diffing and their permission mode. Generally, you don't need to worry about this.</li>
+<li><code>index 0000000..716a6ee</code> gives the internal objects that git is actually diffing and their permission mode. Generally, you don’t need to worry about this.</li>
 <li><code>--- a/dev/null</code> and</li>
 <li><code>+++ b/daysofweek.txt</code> indicate again which file is being diffed. The <code>---</code> indicates the previous version and <code>+++</code> the new. These will usually be the same file (as in the second commit), unless it was added or deleted, then one will be <code>/dev/null</code> like here.</li>
 <li><code>@@ -0,0 +1,7 @@</code> indicates where in the file the changes occur. The first pair of number refer to the old file, the second pair (with the +) the new file. In each pair, the first number is the line number that the patch starts on and the second number is how many lines from that file are shown. So the <code>+1,7</code> means that in the new file, the first line shown is line 1 and there are 7 lines (including the first one) shown.</li>
 <li>Finally there are the line-by-line changes. A line beginning with a <code>-</code> is a deletion and one with a <code>+</code> is an addition. Note that an edit to a line or lines shows up as deletion/insertion pair, which you can see in the second commit.</li>
 </ul>
 <h3 id="direct-diffs">Direct diffs</h3>
-<p><code>git log -p</code> is great for seeing how things have changed over time, but often you only care about the <em>overall</em> difference between two commits. This is where <code>git diff</code> comes into play. Let's say we want to see how the repository has changed since the initial commit. First, let's use <code>git log --oneline</code> to get the hash of the first commit:</p>
+<p><code>git log -p</code> is great for seeing how things have changed over time, but often you only care about the <em>overall</em> difference between two commits. This is where <code>git diff</code> comes into play. Let’s say we want to see how the repository has changed since the initial commit. First, let’s use <code>git log --oneline</code> to get the hash of the first commit:</p>
 <pre><code>4cc58be Put Sunday at the end of the week
 50be39a Changed all days and months to 3 letter abbreviations
 09685d8 Abbreviate June and July in months.txt
 e8e99aa Added daysofweek.txt and months.txt</code></pre>
-<p>In mine, the first commit is <code>e8e99aa</code>. Yours will be different. We can use this hash to tell <code>git diff</code> what to compare to. We'll use <code>git diff e8e99aa</code>. When we only provide one hash, it means "show me the overall difference between this hash and my working directory" (i.e. the current state of the code). This gives us:</p>
+<p>In mine, the first commit is <code>e8e99aa</code>. Yours will be different. We can use this hash to tell <code>git diff</code> what to compare to. We’ll use <code>git diff e8e99aa</code>. When we only provide one hash, it means “show me the overall difference between this hash and my working directory” (i.e. the current state of the code). This gives us:</p>
 <pre><code>diff --git a/daysofweek.txt b/daysofweek.txt
 index 716a6ee..d066a85 100644
 --- a/daysofweek.txt
@@ -291,8 +291,8 @@ index 90061a3..cb6f38f 100644
  Oct
  Nov
  Dec</code></pre>
-<p>The format is exactly the same as the diffs in <code>git log -p</code>. Now, however, notice that even though we're looking at changes across four commits, each file is only shown once, and the changes are the combined changes. In <code>daysofweek.txt</code>, we see both that we abbreviated the days and moved Sunday to the end, and in <code>months.txt</code> it shows the changes to June, July, and September, even though they were made in different commits.</p>
-<p>We can also diff any two arbitrary commits by specifying a second commit hash. So, if we wanted to see the difference between the first and third commits, we'd do <code>git diff e8e99aa 50be39a</code>:</p>
+<p>The format is exactly the same as the diffs in <code>git log -p</code>. Now, however, notice that even though we’re looking at changes across four commits, each file is only shown once, and the changes are the combined changes. In <code>daysofweek.txt</code>, we see both that we abbreviated the days and moved Sunday to the end, and in <code>months.txt</code> it shows the changes to June, July, and September, even though they were made in different commits.</p>
+<p>We can also diff any two arbitrary commits by specifying a second commit hash. So, if we wanted to see the difference between the first and third commits, we’d do <code>git diff e8e99aa 50be39a</code>:</p>
 <pre><code>diff --git a/daysofweek.txt b/daysofweek.txt
 index 716a6ee..adeebab 100644
 --- a/daysofweek.txt
@@ -330,12 +330,12 @@ index 90061a3..cb6f38f 100644
  Oct
  Nov
  Dec</code></pre>
-<p>Similar to the last diff, but here Sunday is still at the beginning of the week because we didn't include the fourth commit.</p>
+<p>Similar to the last diff, but here Sunday is still at the beginning of the week because we didn’t include the fourth commit.</p>
 <h3 id="other-ways-to-refer-to-commits">Other ways to refer to commits</h3>
 <p>In place of hashes, you can also use references, like branch names or HEAD. For example, <code>git diff 09685d8 HEAD</code> and <code>git diff 09685d8 master</code> will both diff the last commit against the second one (which has the hash 09685d8).</p>
 <p>There is also a shorthand for <em>n</em> commits before a given commit: <code>~n</code>. For example, <code>HEAD~1</code> means the commit before <code>HEAD</code>, so <code>git diff HEAD~1 HEAD</code> diffs the immediately previous commit against its parent.</p>
 <h4 id="diffing-the-working-directory-against-the-index-and-the-index-against-the-head">Diffing the working directory against the index and the index against the HEAD</h4>
-<p>If you type just <code>git diff</code> right now, you won't see anything. That's because there's currently no uncommitted changes. Let's edit both files to demo how this works. I just added a header to both:</p>
+<p>If you type just <code>git diff</code> right now, you won’t see anything. That’s because there’s currently no uncommitted changes. Let’s edit both files to demo how this works. I just added a header to both:</p>
 <p><strong>months.txt:</strong></p>
 <pre><code># English months
 Jan
@@ -359,7 +359,7 @@ Thu
 Fri
 Sat
 Sun</code></pre>
-<p>Now run <code>git diff</code> without any commit hashes and you'll get this:</p>
+<p>Now run <code>git diff</code> without any commit hashes and you’ll get this:</p>
 <pre><code>diff --git a/daysofweek.txt b/daysofweek.txt
 index d066a85..d737d32 100644
 --- a/daysofweek.txt
@@ -378,8 +378,8 @@ index cb6f38f..048b8bf 100644
  Jan
  Feb
  Mar</code></pre>
-<p>This shows us exactly what we've changed since the last commit, which is extremely useful.</p>
-<p>Okay, <em>actually</em> that's not diffed against the last commit, it's diffed against the <em>index</em>, which remember is the files staged to be committed that haven't been committed yet. We can see this if we stage one file: do <code>git add months.txt</code> then do <code>git diff</code> again. Now we get:</p>
+<p>This shows us exactly what we’ve changed since the last commit, which is extremely useful.</p>
+<p>Okay, <em>actually</em> that’s not diffed against the last commit, it’s diffed against the <em>index</em>, which remember is the files staged to be committed that haven’t been committed yet. We can see this if we stage one file: do <code>git add months.txt</code> then do <code>git diff</code> again. Now we get:</p>
 <pre><code>diff --git a/daysofweek.txt b/daysofweek.txt
 index d066a85..d737d32 100644
 --- a/daysofweek.txt
@@ -389,8 +389,8 @@ index d066a85..d737d32 100644
  Mon
  Tue
  Wed</code></pre>
-<p>just the changes to <code>daysofweek.txt</code>! This doesn't come up too often, unless you end up staging files and not committing right away (<a href="./miscellany.md">which you might</a>), but it can be confusing when it does if you don't know about this.</p>
-<p>In this case, if you really want to see the differences, both staged and unstaged, since the last commit, you'd use <code>git diff HEAD</code>. Try it, and you'll see the changes to <code>daysofweek.txt</code> and <code>months.txt</code> again.</p>
+<p>just the changes to <code>daysofweek.txt</code>! This doesn’t come up too often, unless you end up staging files and not committing right away (<a href="./miscellany.md">which you might</a>), but it can be confusing when it does if you don’t know about this.</p>
+<p>In this case, if you really want to see the differences, both staged and unstaged, since the last commit, you’d use <code>git diff HEAD</code>. Try it, and you’ll see the changes to <code>daysofweek.txt</code> and <code>months.txt</code> again.</p>
 <p>Alternatively, if you want to see the diff between the last commit and the <em>staged</em> changes, use <code>git diff --cached</code> (<code>git diff --staged</code> is a synonym that does the same thing, but I find <code>--cached</code> easier to type, and I can autocomplete it after the <code>ca</code>):</p>
 <pre><code>diff --git a/months.txt b/months.txt
 index cb6f38f..048b8bf 100644
@@ -401,8 +401,8 @@ index cb6f38f..048b8bf 100644
  Jan
  Feb
  Mar</code></pre>
-<p>Now we see only the changes to <code>months.txt</code>. This is useful if you're trying to only commit a specific subset of changes made since the last commit, and need to make sure what you're committing before you make the commit.</p>
-<p>Go ahead and commit the changes to both <code>months.txt</code> and <code>daysofweek.txt</code>, we'll start from that point in Lesson 5.</p>
+<p>Now we see only the changes to <code>months.txt</code>. This is useful if you’re trying to only commit a specific subset of changes made since the last commit, and need to make sure what you’re committing before you make the commit.</p>
+<p>Go ahead and commit the changes to both <code>months.txt</code> and <code>daysofweek.txt</code>, we’ll start from that point in Lesson 5.</p>
 <ul>
 <li><a href="5-removing-files.html">Next lesson: removing files</a></li>
 <li><a href="3-further-commits.html">Previous lesson: making commits</a></li>
@@ -418,7 +418,7 @@ index cb6f38f..048b8bf 100644
               <ul>
 <li>Version control (general)</li>
 <ul>
-<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
 </ul>
 <li>Git version control</li>
 <ul>
@@ -434,7 +434,7 @@ index cb6f38f..048b8bf 100644
 </ul>
 <li>Julia</li>
 <ul>
-<li><a href="../../julia-misunderstood.html">What Julia can and can't replace about Fortran</a></li>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
 </ul>
 </ul>
 
