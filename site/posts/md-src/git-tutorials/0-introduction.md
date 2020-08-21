@@ -66,7 +66,7 @@ of Git. I also have written up a series of smaller posts covering more specific 
 * GitHub concepts: forks and pull requests
 
 ### Part I: tracking a linear history
-* Lesson 1: Installing Git
+* [Lesson 1: Installing Git](part1/1-install.html)
 * [Lesson 2: Creating a repo and making the first commit](part1/2-setup-and-first-commit.html)
 * [Lesson 3: Making additional commits, and understanding the HEAD, index, and working directory](part1/3-further-commits.html)
 * [Lesson 4: Reviewing history with log and diff](part1/4-reviewing-history.html)

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../../style/posts.css">
+
+  <title>Joshua L. Laughner - Part 1, Lesson 1: Installing Git</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-8 col-md-6 d-block d-lg-none">
+        <!-- Collapsible table of contents for small screens-->
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title" style="text-align:center">
+                <a data-toggle="collapse" href="#collapse-toc">Other posts &#9662;</a>
+              </h4>
+            </div>
+            <div id="collapse-toc" class="panel-collapse collapse">
+              <div class="panel-body post-toc"><ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><b>Part 1, Lesson 1: Installing Git</b></li>
+<li><a href="2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+</div>
+            </div>
+          </div>
+        </div>
+        <!-- End collapsible TOC -->
+      </div>
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 d-block d-lg-none">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-10 col-lg-7">
+        <h2 id="part-1-lesson-1-installing-git">Part 1, Lesson 1: Installing Git</h2>
+<p>The first step to using Git is, of course, to install it. It may already be installed on your system. We’ll check first.</p>
+<ul>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#mac">Mac</a></li>
+<li><a href="#linux">Linux</a></li>
+</ul>
+<h3 id="windows">Windows</h3>
+<h4 id="is-it-installed">Is it installed?</h4>
+<p>There are two ways to check if it is installed:</p>
+<ol type="1">
+<li>Type “Git” in your search box. If you see “Git GUI” and “Git Bash” as options, it is installed.</li>
+<li>Right click in the main area of the file explorer as shown below. If you see “Git GUI” and “Git Bash” in the context menu, it is installed.</li>
+</ol>
+<figure>
+<img alt="An image showing the right-click context menu in Windows file explorer with Git Bash highlighted." class="post-img" src="img/gitwin-run-1-context-menu.png"/><figcaption class="hidden">An image showing the right-click context menu in Windows file explorer with Git Bash highlighted.</figcaption>
+</figure>
+<p>Note that this is also the easiest way to launch Git Bash (which is what we will be using). When you launch it via the right-click menu, the bash terminal starts in this folder.</p>
+<h4 id="installing">Installing</h4>
+<p>To install, download the Windows package from https://git-scm.com/downloads. Launch the installer like a normal Windows installer.</p>
+<p>The first page of the installer will pop up with a number of options to enable or disable.</p>
+<figure>
+<img alt="An image showing the first page of the Git Windows installer" class="post-img" src="img/gitwin-install-1-options.png"/><figcaption class="hidden">An image showing the first page of the Git Windows installer</figcaption>
+</figure>
+<p>The three you definitely want checked are:</p>
+<ul>
+<li>Git Bash Here</li>
+<li>Git GUI Here</li>
+<li>Associate .git* configuration files with the default text editor</li>
+</ul>
+<p>You may uncheck Git LFS if you want, but it doesn’t interfere with anything, so I would leave it checked. The “Associate .sh files to be run with Bash” is one you should uncheck if you already have <code>.sh</code> files that should be run with something else - this is uncommon for Windows, so it’s usually okay to leave it checked.</p>
+<p>The next page will ask what editor you want to use for your commit messages. The default (vim) is, as the warning says, not very intuitive. I recommend choosing one of the other editors, which are normal GUI editors (whereas vim is in the terminal). If you already have one of the ones listed installed, use that. Otherwise, <a href="https://notepad-plus-plus.org/">Notepad++</a> is the most lightweight and so will launch the quickest. If you don’t use any of the other ones, then I recommend Notepad++. <strong>Note:</strong> you won’t be able to click “Next” if you have selected an editor that is not installed. In that case, cancel the Git installation, install your desired editor, then try Git again.</p>
+<figure>
+<img alt="An image showing the dialogue to select an editor for Git" class="post-img" src="img/gitwin-install-2-editor-1.png"/><figcaption class="hidden">An image showing the dialogue to select an editor for Git</figcaption>
+</figure>
+<figure>
+<img alt="An image showing the dialogue to select an editor for Git with the dropdown extended" class="post-img" src="img/gitwin-install-2-editor-2.png"/><figcaption class="hidden">An image showing the dialogue to select an editor for Git with the dropdown extended</figcaption>
+</figure>
+<p>There will be several more dialogues, I recommend keeping the defaults for all of them.</p>
+<ul>
+<li><a href="2-setup-and-first-commit.html">Next lesson: global configuration, creating a repo, and first commits</a></li>
+<li><a href="../0-introduction.html">Back to the introduction</a></li>
+</ul>
+<h3 id="mac">Mac</h3>
+<h4 id="is-it-installed-1">Is it installed?</h4>
+<p>Open your Terminal. The easiest way is to do a Spotlight search (with <code>Cmd+Spacebar</code>) and search for “Terminal” - it’ll be the one with a mostly black box as an icon. When it launches, type <code>git --version</code>. If it prints something like <code>git version 2.28.0</code> on the next line (your number may differ), then it is installed. If it prints <code>git: command not found</code> then you will need to install it.</p>
+<h4 id="installing-1">Installing</h4>
+<p>The main Git page for Mac (https://git-scm.com/download/mac) gives several options. Although installing via <a href="https://brew.sh/">Homebrew</a> is the first option, if you don’t have Homebrew already installed, that might be more than you want to deal with. (I will say, having Homebrew installed can be very helpful in data science.) Either the Xcode or binary installer methods are easiest. The binary installer is just like any other app installer. To install with Xcode, in the Terminal type:</p>
+<pre><code>xcode-select --install</code></pre>
+<p>and this should install Git along with some other command line tools. <strong>Note:</strong> you do <em>not</em> need the full Xcode package, only the command line tools.</p>
+<ul>
+<li><a href="2-setup-and-first-commit.html">Next lesson: global configuration, creating a repo, and first commits</a></li>
+<li><a href="../0-introduction.html">Back to the introduction</a></li>
+</ul>
+<h3 id="linux">Linux</h3>
+<h4 id="is-it-installed-2">Is it installed?</h4>
+<p>Most Linux distributions come with Git preinstalled. You can check by opening your Terminal and typing <code>git --version</code>. If it prints something like <code>git version 2.28.0</code>, then it is installed. If you see <code>git: command not found</code> <em>or</em> something like <code>The package git is not installed. You can install it with...</code>, then it needs installed.</p>
+<h4 id="installing-2">Installing</h4>
+<p>The main Git Linux downloads page (https://git-scm.com/download/linux) lists how to install it for many Linux distributions. In all cases you will install it through your package manager (e.g. <code>apt</code>, <code>yum</code>, etc.)</p>
+<ul>
+<li><a href="2-setup-and-first-commit.html">Next lesson: global configuration, creating a repo, and first commits</a></li>
+<li><a href="../0-introduction.html">Back to the introduction</a></li>
+</ul>
+
+        </div>
+        <div class="col-lg-4 col-xl-3 d-none d-lg-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><b>Part 1, Lesson 1: Installing Git</b></li>
+<li><a href="2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block d-lg-none d-xl-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

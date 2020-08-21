@@ -438,4 +438,3 @@ Which method should you use to go back to an old version of the code? Well:
   are good reasons to use it, but at this stage in your Git learned, it's best to just steer clear.
 
 * [Previous lesson: removing/untracking files](5-removing-files.html)
-* [Next lesson: ignoring files](7-gitignore.html)

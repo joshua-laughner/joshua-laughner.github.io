@@ -235,3 +235,4 @@ In this lesson we covered how to initialize a repo and make the first commit. In
 creating more commits and learn about the difference between the HEAD, index, and working directory.
 
 * [Next lesson: more on commits](3-further-commits.html)
+* [Previous lesson: installing Git](1-install.html)
