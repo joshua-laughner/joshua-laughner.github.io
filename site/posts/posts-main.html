@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../style/posts.css">
+
+  <title>Joshua L. Laughner - Posts home</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-8 col-md-6 d-block d-lg-none">
+        <!-- Collapsible table of contents for small screens-->
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title" style="text-align:center">
+                <a data-toggle="collapse" href="#collapse-toc">Other posts &#9662;</a>
+              </h4>
+            </div>
+            <div id="collapse-toc" class="panel-collapse collapse">
+              <div class="panel-body post-toc"><ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+</div>
+            </div>
+          </div>
+        </div>
+        <!-- End collapsible TOC -->
+      </div>
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 d-block d-lg-none">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-10 col-lg-7">
+        <h2 id="posts-home">Posts home</h2>
+<p>Anyone who knows me finds out rather quickly that I have many opinions on programming and data science, and especially about how to do them well and avoid common pitfalls. If that sounds interesting to you, please check out the links either in the menu to the right (on large screen devices) or in the collapsible cell at the top of this page (under the main menu bar, on smaller devices).</p>
+<p>I’ll try to adhere to the following conventions throughout:</p>
+<ul>
+<li>Monospaced text in <code>this style</code>, inline with regular text, is either a terminal/shell command, a snippet of code, or a filename.</li>
+<li>Monospaced text in a grey block is either an extended code segment, an example of input and output in a terminal/shell, or the contents of a file. <a href="https://xkcd.com/221/">An example is</a>:</li>
+</ul>
+<pre><code>def random_i_promise():
+    return 42  # chosen at random, I swear</code></pre>
+<ul>
+<li>In these blocks, when I am giving an example of shell I/O, lines that start with a <code>$</code> are inputs - you would type everything after the dollar sign. Other lines are what is returned by the program. In the example, you would type <code>git --version</code> and see the second line:</li>
+</ul>
+<pre><code>$ git --version
+git version 2.28.0</code></pre>
+<ul>
+<li>If I have something to say as an aside that’s noteworthy but not crucial to the main point of the post, it will be in a blue bubble like this:</li>
+</ul>
+<div class="aside">
+<p>This is interesting, but not critical.</p>
+</div>
+
+        </div>
+        <div class="col-lg-4 col-xl-3 d-none d-lg-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block d-lg-none d-xl-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

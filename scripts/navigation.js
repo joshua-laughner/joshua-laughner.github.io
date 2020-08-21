@@ -29,6 +29,9 @@ document.getElementById("navMenu").innerHTML=
       '<a class="nav-link" href="' + site_root + 'site/projects.html' + '">Projects</a>'+
     '</li>'+
     '<li class="nav-item active">'+
+      '<a class="nav-link" href="' + site_root + 'site/posts/posts-main.html' + '">Posts</a>'+
+    '</li>'+
+    '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'files/Laughner-CV.pdf' + '">CV</a>'+
     '</li>'+
     '<li class="nav-item active">'+
