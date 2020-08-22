@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../style/posts.css">
+
+  <title>Joshua L. Laughner - Gotchas in Julia</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-8 col-md-6 d-block d-lg-none">
+        <!-- Collapsible table of contents for small screens-->
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title" style="text-align:center">
+                <a data-toggle="collapse" href="#collapse-toc">Other posts &#9662;</a>
+              </h4>
+            </div>
+            <div id="collapse-toc" class="panel-collapse collapse">
+              <div class="panel-body post-toc"><ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><b>Gotchas in Julia</b></li>
+<li><a href="julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+</div>
+            </div>
+          </div>
+        </div>
+        <!-- End collapsible TOC -->
+      </div>
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 d-block d-lg-none">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-10 col-lg-7">
+        <h2 id="gotchas-in-julia">Gotchas in Julia</h2>
+<p><a href="https://julialang.org/">Julia</a> is a fun new language that definitely fills a gap in capabilities between something like Python and something like Fortran, but it certainly has some “gotchas” that I run into a lot, and its error messages can be downright cryptic. Here I’ve put together a list of the ones that got me the most when I was learning, and I’ll update this if I find any more.</p>
+<h3 id="method-errors">Method errors</h3>
+<p>Because Julia uses <a href="https://en.wikipedia.org/wiki/Multiple_dispatch">multiple dispatch</a>, which basically means it determines which version of a function (which “method”) to call at run time based on the types of the inputs, a large subset of errors are reported as “method errors”, meaning it can’t find a method (i.e. version of a function) that accepts the right set of types. Here’s some of the ways that these errors got me.</p>
+<p><strong>No method found for function with nested types in the signature</strong></p>
+<p>Let’s say you have a method like this:</p>
+<pre><code>function foo(x::AbstractArray{AbstractFloat})
+...
+end</code></pre>
+<p>but, when you call, e.g. <code>foo([1.0, 2.0, 3.0])</code> you get the infamous “No method found matching” error. The problem is that <code>foo</code> needs defined like this:</p>
+<pre><code>function foo(x::AbstractArray{&lt;:AbstractFloat})
+...
+end</code></pre>
+<p>For whatever reason, Julia will automatically match the outermost type to any subtypes, but the has to be explicitly told to match subtypes of inner types. So for a function <code>foo(x::AbstractArray)</code> would match when called with a concrete array of floats, e.g. <code>Array{Float64}</code>, but <code>foo(x::AbstractArray{AbstractFloat})</code> would only match if called with some type of array containing <code>AbstractFloat</code>s and not any subtype of <code>AbstractFloat</code>.</p>
+<p><strong>No method found for math operations on arrays</strong></p>
+<p>One that gets me <em>a lot</em> is when I’m trying to assign a value to a slice of an array. If I try to do something like:</p>
+<pre><code>arr[:,1] = NaN;</code></pre>
+<p>I get the error <code>MethodError: no method matching setindex_shape_check</code>. This one is particularly confusing, but all I need to do to fix it is replace <code>=</code> with <code>.=</code></p>
+<pre><code>arr[:,1] .= NaN;</code></pre>
+<p>This can lead to expressions which look like they have an awful lot of periods in them. For instance, I was once trying to get a logical index (<code>xx</code>) for elements in two arrays of equal size that were <em>not</em> NaNs in either array, which looked like:</p>
+<pre><code>xx = .!isnan.(arr1) .&amp; .!isnan.(arr2)</code></pre>
+<p><code>!</code>, <code>isnan</code>, and <code>&amp;</code> <em>all</em> only work on single elements, so I had to broadcast all of them.</p>
+<p>Another favorite is when I’m trying to replace a bunch of values in an array that all meet some criteria, say all negative values should be replaced with NaNs. This looks like:</p>
+<pre><code>data[data .&lt; 0] .= NaN</code></pre>
+<p>and if you forget the dot in the <code>.=</code> operator, you’ll get a method error about something called <code>setindex_shape_check</code>. Well, now you know what that refers to.</p>
+<p><strong>No method found with keyword arguments, even though all the other types are right</strong></p>
+<p>If you have a function with keyword arguments, like</p>
+<pre><code>function reldiff(a, b; percent=false)
+    delta = (b-a)/abs(denom)
+    if percent
+        delta *= 100
+    end
+    return delta
+end</code></pre>
+<p>you’ll get a method error if you misspell the keyword, so <code>reldiff(100., 101., pct=true)</code> will give a method error, even though all the types are fine. Fortunately, it will tell you slightly further down in the error message “got unsupported keyword”.</p>
+<h3 id="syntax-errors">Syntax errors</h3>
+<p><strong>Character vs. string literals</strong></p>
+<p>Coming from Matlab or Python, you might be used to being able to define strings using single or double quotes. (Yes there’s a <em>slight</em> difference in Matlab between the two types of quote, but <code>'hello'</code> and <code>"hello"</code> are both valid.)</p>
+<p>In Julia, single quotes are for characters and double quotes are for strings. That means that <code>'a'</code>, <code>"a"</code>, and <code>"apple"</code> are all valid but <code>'apple'</code> is not (can’t have more than one letter inside a set of single quotes.) In general, use double quotes in Julia unless you know you need a <em>character</em> specifically, and not just a length-1 string.</p>
+<p><strong>Array literals: commas vs. spaces</strong></p>
+<p>This is one that’s handy once you know about it, but diabolically confusing if you don’t. In Julia, when you define an array with square brackets, it matters whether you separate the entries with spaces or commas. Commas give you a one dimensional array (a vector):</p>
+<pre><code>julia&gt; ndims[1,2,3]
+1
+
+julia&gt; size([1,2,3])
+(3,)</code></pre>
+<p>Spaces give you a 1-by-<em>N</em> array, which actually has two dimensions:</p>
+<pre><code>julia&gt; ndims([1 2 3])
+2
+
+julia&gt; size([1 2 3])
+(1, 3)</code></pre>
+<p>This means matrix multiplication works:</p>
+<pre><code># Dot product, 1*1 + 2*2 + 3*3 = 14
+julia&gt; [1 2 3] * [1,2,3]
+1-element Array{Int64,1}:
+ 14</code></pre>
+<p>But does mean that you can’t freely choose spaces or commas depending on what is easier to type or reads better.</p>
+<h3 id="bounds-errors">Bounds errors</h3>
+<p>** Bounds error with logical index **</p>
+<p>If you get a <code>BoundsError</code> when trying to index an array with a logical array, check that the logical array is the right size. For example if <code>arr</code> is 5x3, then</p>
+<pre><code>xx = [true, false, false, false];
+arr[xx,:];</code></pre>
+<p>will cause a <code>BoundsError</code> because <code>xx</code> is only four long, but <code>size(arr,1)</code> is 5.</p>
+<h3 id="dependency-warnings">Dependency warnings</h3>
+<p><strong>Package requires another, but it is not in its dependencies</strong></p>
+<p>This is usually just a warning. It usually happens when you are working on a custom package and have inserted a new <code>using &lt;package&gt;</code> or <code>import &lt;package&gt;</code> call somewhere, but not also done <code>]add &lt;package&gt;</code> while that project is active. If the package you’re trying to import is available on your system, it’ll be imported, but because it hasn’t been “officially” added to your project, the fact that it’s needed is not recorded in the <code>Project.toml</code> file. <code>add</code>ing that package with <code>]add &lt;package&gt;</code> from the Julia REPL is usually enough to fix this.</p>
+
+        </div>
+        <div class="col-lg-4 col-xl-3 d-none d-lg-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Julia</li>
+<ul>
+<li><b>Gotchas in Julia</b></li>
+<li><a href="julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block d-lg-none d-xl-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>
