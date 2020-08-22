@@ -16,6 +16,7 @@ md_contents:
             - "git-tutorials/part1/5-removing-files.md"
             - "git-tutorials/part1/6-going-back.md"
     - Julia:
+        - "gotchas-in-julia.md"
         - "julia-misunderstood.md"
 md_other:
     - "posts-main.md"
