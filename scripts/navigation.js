@@ -35,6 +35,9 @@ document.getElementById("navMenu").innerHTML=
       '<a class="nav-link" href="' + site_root + 'files/Laughner-CV.pdf' + '">CV</a>'+
     '</li>'+
     '<li class="nav-item active">'+
+      '<a class="nav-link" href="' + site_root + 'site/other.html' + '">Other downloads</a>'+
+    '</li>'+
+    '<li class="nav-item active">'+
       '<a class="nav-link" href="' + site_root + 'site/contact.html' + '">Contact</a>'+
     '</li>'+
   '</ul>'+
