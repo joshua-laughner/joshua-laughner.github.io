@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+  <!-- My post CSS -->
+    <link rel="stylesheet" href="../../../style/posts.css">
+
+  <title>Joshua L. Laughner - Motivation for a reproducible system for Python Jupyter notebooks</title>
+
+<!-- Styles to help debug the layout by coloring the columns -->
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style>
+
+</head>
+<body>
+
+  <!-- Much more explanatory tutorial than the docs (which don't deserve the name):
+       https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/ -->
+
+  <!-- bootstrap works by allowing you to define different behaviors for
+       different size screens. Classes with the -xs, -sm, -md, or -lg extensions
+       are defined to behave differently on different size screens. Here, the
+       navbar-expand-md tag means that on medium size screens, the nav bar will
+       have all the buttons visible, but on small and extra-small screens (mainly)
+       phones and tablets) will require a button press to bring up the nav bar buttons -->
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
+   If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
+ </nav>
+
+  <div class="container-fluid">
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+      <div class="col-xs-12 col-sm-8 col-md-6 d-block d-lg-none">
+        <!-- Collapsible table of contents for small screens-->
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title" style="text-align:center">
+                <a data-toggle="collapse" href="#collapse-toc">Other posts &#9662;</a>
+              </h4>
+            </div>
+            <div id="collapse-toc" class="panel-collapse collapse">
+              <div class="panel-body post-toc"><ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="../git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="../git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="../git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="../git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="../git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="../git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Jupyter Notebooks</li>
+<ul>
+<li><b>Motivation for a reproducible system for Python Jupyter notebooks</b></li>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../gotchas-in-julia.html">Gotchas in Julia</a></li>
+<li><a href="../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+</div>
+            </div>
+          </div>
+        </div>
+        <!-- End collapsible TOC -->
+      </div>
+      <div class="col-sm-2 col-md-3 d-none d-sm-block"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 d-block d-lg-none">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1 d-none d-sm-block"></div>
+        <div class="col-xs-12 col-sm-10 col-lg-7">
+        <h2 id="motivation-for-a-reproducible-system-for-python-jupyter-notebooks">Motivation for a reproducible system for Python Jupyter notebooks</h2>
+<p>Many scientific journals now expect authors to include code that they used in support of a published article to include the code with the article, usually as an external repository. Of course, getting people to follow that requirement is only half the battle - putting the code online does little good if it’s difficult or impossible to get to run.</p>
+<p>I switched to Python Jupyter Notebooks from Matlab in my postdoc, so when I started using them, I had already had experience with packaging up Matlab code to publish alongside articles. That influenced the requirements I set for myself when designing a system to organize my notebooks. The requirements I came up with were:</p>
+<ol type="1">
+<li>Must be able to go back to previous days’ work</li>
+<li>Must be able to isolate dependencies from project to project</li>
+<li>Must be able to move the project from one system to another</li>
+<li>Must be able to reuse code across notebooks easily</li>
+<li>Must be able to reuse code <em>between projects</em> easily but allow each project control over what version of that code it uses.</li>
+</ol>
+<p>In this post, I’m going to focus on <em>why</em> each of those is important. Another post wil explain in detail how I do these, but I’ll give the executive summary here:</p>
+<ul>
+<li>Create a Git repo for notebooks with notebooks in the top directory and subdirectories <code>data</code>, <code>img</code>, and <code>src</code>.
+<ul>
+<li>Create a notebook for each day or week spent on that project</li>
+<li><code>data</code> holds both data used across the whole project and data for individual days/weeks</li>
+<li><code>img</code> holds both external images used in notebooks and images created by the notebooks</li>
+<li><code>src</code> holds custom code to be reused</li>
+</ul></li>
+<li>Create a Conda environment for this project and install an IPython kernel in it so that Jupyter can run notebook code in that environment</li>
+<li>Create a python package to hold reused code (in <code>src</code>) and install it in the environment. Track this as part of the repo.</li>
+<li>Add other custom packages of yours as Git submodules under <code>src</code> and install them in the environment.</li>
+</ul>
+<p>If you’re familiar with Git, Conda, and Python packages, this might be enough for you. If not, don’t worry, I’ll cover how to create this in detail in another post. But here I want to establish why each of these requirements are important.</p>
+<h3 id="going-back-to-previous-days-work">Going back to previous days work</h3>
+<p>This is a cornerstone of any scientific endeavor - we always have to keep a record of how we did an experiment so that we can go back and either reproduce it, or try to understand why the result differed from a later experiment or another person’s work. When we’re working with code, we have the advantage that it’s easy to save a copy (of the code at least - data might be another matter). But it’s also ephemeral if not taken care of. If we <em>don’t</em> save a copy of the code we used, it will be gone at some point - maybe as soon as you close the prompt, maybe in a few days if the prompt stores history temporarily.</p>
+<p>The nice thing about Jupyter notebooks is that, when you run code in a cell, that cell stays there unless you deliberately delete it. Contrast this with something like the IPython interpreter or Matlab command prompt, where you have to up-arrow your way back through your history, hoping that you can find the command you ran three days ago.</p>
+<p>This permanence of notebook cells is a good start, but it’s important to keep your notebooks organized so that you can find work from previous days with as little scrolling as you can manage. No way is perfect, but I’ve found a way that’s worked for me.</p>
+<h3 id="isolating-dependencies">Isolating dependencies</h3>
+<p>This is a big one, and actually a major reason I moved away from Matlab. Let’s say you want to start a new project (we’ll call it “B”) and you know that you’ll need <a href="https://geopandas.org/">Geopandas</a> to deal with loading and plotting some of the data. You go to install it, but it wants to upgrade your Matplotlib installation. Do you:</p>
+<ul>
+<li>let it, and accept the risk that your code for your current project (call it “A”) might break with the new Matplotlib,</li>
+<li>try to find a workaround to using Geopandas, or</li>
+<li>spend half a day trying to find a version of Geopandas compatible with your current Matplotlib (with no guarantee of success)</li>
+</ul>
+<p>None of these are that appealing. However, the fourth option is to given projects A and B each their own environment, which in turn lets each one have its own packages installed. Project A could use Matplotlib version 2.0.0 and Project B could update to version 3.3.1 without any worry about breaking Project A.</p>
+<h3 id="moving-the-project-from-one-system-to-another">Moving the project from one system to another</h3>
+<p>Given the way I framed this (being able to package up your code to go along with a journal article), I think the motivation for this is pretty clear. To do that, someone else needs to be able to download your code and get it to run with as little effort as possible. There’s a secondary benefit, which is if you need to move this code from your laptop to a workstation or supercomputing cluster, having it ready to be moved will save you <em>a lot</em> of grief.</p>
+<p>This requirement is interesting because it actually touches on a lot of elements, everything from having the notebooks stored in a Git repo to avoiding absolute paths. So unlike the other requirements, which are addressed by one part of the notebook repo design, this one requires more of an ongoing commitment by you as you write your code.</p>
+<h3 id="reusing-code-across-notebooks-within-this-project">Reusing code across notebooks (within this project)</h3>
+<p>No matter how you choose to organize your notebooks, you’ll likely run into the case where you want to reuse code from one notebook in another. Now, you could certainly copy it, and in fact I will do that sometimes. But once you find yourself copying the same code into <em>every</em> notebook, it would be much more efficient if that code was somewhere that you could just <code>import</code> it like any other package.</p>
+<p>Developing good habits for code reuse is something I take seriously. It’s not just about efficiency, it’s about ensuring consistency. If you have a complicate file to load or tricky plot to make, you want to be sure you do it the same way <em>every</em> time, rather than worrying that your analysis showed a different result not because the actual data was different, but because you slipped up and did the analysis differently.</p>
+<h3 id="reusing-code-across-projects-safely">Reusing code across projects safely</h3>
+<p>Going further along the idea of code reuse, eventually you’ll hopefully assemble some extra functions that handle certain things you find yourself doing over and over, and you’ll want to use those in more than one project. I have <a href="https://github.com/joshua-laughner/JLL-Py-Utils">exactly that kind of repo</a> that has all the complicated things I figured out how to do once and wrote into a function so I didn’t have to figure it out again.</p>
+<p>But once you start sharing code between projects you run into the dependency problem again. For example, let’s say you have a function <a href="https://github.com/joshua-laughner/JLL-Py-Utils/blob/master/jllutils/stats.py#L1522"><code>reldiff</code></a> that computes the relative difference between two numbers/arrays/whatevers and you use it liberally throughout Project A. Later for Project B you realize you’ve always been multiplying the result by 100 to get percent difference, so you want to change the function to do that automatically. If Projects A and B share the same <code>reldiff</code> code, you can’t change it without breaking Project A. If they have separate code files, then this isn’t a problem.</p>
+<p>On the other hand, if you fix a tricky bug in <code>reldiff</code> during Project B, you probably want to have a straightforward way to bring those changes back into Project A. The balance is finding a way to keep that code connected between the two projects, but give yourself control over when changes to it move between projects.</p>
+
+        </div>
+        <div class="col-lg-4 col-xl-3 d-none d-lg-block">
+            <div class="post-toc">
+              <ul>
+<li>Version control (general)</li>
+<ul>
+<li><a href="../mercurial-vs-git.html">Git vs. Mercurial: Which DVCS to choose?</a></li>
+</ul>
+<li>Git version control</li>
+<ul>
+<li><a href="../git-tutorials/0-introduction.html">An introduction to Git</a></li>
+<li>Part I: linear history</li>
+<ul>
+<li><a href="../git-tutorials/part1/1-install.html">Part 1, Lesson 1: Installing Git</a></li>
+<li><a href="../git-tutorials/part1/2-setup-and-first-commit.html">Part 1, Lesson 2: creating a repo and making the first commit</a></li>
+<li><a href="../git-tutorials/part1/3-further-commits.html">Part 1, Lesson 3: making more commits</a></li>
+<li><a href="../git-tutorials/part1/4-reviewing-history.html">Part 1, Lesson 4: reviewing history</a></li>
+<li><a href="../git-tutorials/part1/5-removing-files.html">Part 1, Lesson 5: removing files</a></li>
+<li><a href="../git-tutorials/part1/6-going-back.html">Part 1, Lesson 6: going back to old commits</a></li>
+</ul>
+</ul>
+<li>Jupyter Notebooks</li>
+<ul>
+<li><b>Motivation for a reproducible system for Python Jupyter notebooks</b></li>
+</ul>
+<li>Julia</li>
+<ul>
+<li><a href="../gotchas-in-julia.html">Gotchas in Julia</a></li>
+<li><a href="../julia-misunderstood.html">What Julia can and can’t replace about Fortran</a></li>
+</ul>
+</ul>
+
+            </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block d-lg-none d-xl-block"></div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <!--
+    <div class="row">
+        <div class="col-xs-12 d-block mx-auto" >
+          <a class="btn btn-info" href="phd-research.html" role="button">Go to previous research</a>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    -->
+
+    <div id="myfooter" align="center">If you are seeing this text, JavaScript is disabled. Please enable it to see the footer.</div>
+  </div>
+
+  <!--Nav bar and footer script-->
+  <script type="text/javascript" src="../../../scripts/navigation.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>

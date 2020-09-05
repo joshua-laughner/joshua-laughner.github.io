@@ -15,6 +15,8 @@ md_contents:
             - "git-tutorials/part1/4-reviewing-history.md"
             - "git-tutorials/part1/5-removing-files.md"
             - "git-tutorials/part1/6-going-back.md"
+    - Jupyter Notebooks:
+        - "notebook-env/1-notebook-intro.md"
     - Julia:
         - "gotchas-in-julia.md"
         - "julia-misunderstood.md"
