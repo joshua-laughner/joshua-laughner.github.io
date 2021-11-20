@@ -7,6 +7,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../css/main.css">
 
   <title>Joshua L. Laughner</title>
 
@@ -38,6 +39,8 @@ function openMailer(element) {
     element.setAttribute("onclick", "");
     element.firstChild.nodeValue = "Open e-mail software";
 };
+
+  var newUrl = "https://joshua-laughner.io/contact"
 </script>
 
 </head>
@@ -55,6 +58,25 @@ function openMailer(element) {
  <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navMenu"><font color="white">
    If you are seeing this text, you have JavaScript disabled. Allow it for this domain to enable the menu bar.</font>
  </nav>
+
+ <div class="overlay" id="overlay">
+  <div class="centered">
+    <h1>Website moved</h1>
+    <p>Hello! Thanks for visiting my website, but I have moved to a new domain:</p>
+    <p><a href="" id="newUrl">joshua-laughner.io</a></p>
+    <p>This website is no longer updated.</p>
+    <p>If you've come here through a bookmark, please update it. If you got here through a link I gave you recently,
+       let me know! If you got here through a search engine... well, hopefully it'll figure this out soon.</p>
+
+    <form>
+      <input type="button" value="Take me to the new site" onclick="redirect();"/>
+      <input type="button" value="Stay here" onclick="cancelRedirect();"/>
+    </form>
+
+    <br>
+    <p style="margin-top: 1rem;" id="redirectNotice">Do nothing to be redirected in <b><span id="countdown">30</span></b> seconds.</p>
+  </div>
+</div>
 
   <div class="container-fluid">
     <div class="row">&nbsp;</div>
@@ -110,6 +132,7 @@ function openMailer(element) {
 
   <!--Nav bar and footer script-->
   <script type="text/javascript" src="../scripts/navigation.js"></script>
+  <script type="text/javascript" src="../scripts/send_to_new_site.js"></script>
 
   <!--Insert email into website indirectly to limit bot's ability to scrape it-->
   <!--Based on https://stackoverflow.com/a/57821457 to encrypt (lightly) the email-->

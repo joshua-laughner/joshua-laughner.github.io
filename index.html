@@ -28,7 +28,6 @@
 
 <script>
   var newUrl = "https://joshua-laughner.io"
-  var startCounter = false;
 </script>
 
 </head>
@@ -49,33 +48,6 @@
 
       <br>
       <p style="margin-top: 1rem;" id="redirectNotice">Do nothing to be redirected in <b><span id="countdown">30</span></b> seconds.</p>
-
-      <script>
-        document.getElementById("newUrl").href = newUrl;
-        setTimeout(function() {document.getElementById("overlay").style.opacity = 1; startCounter = true;}, 500);
-        
-
-        var interval = setInterval(function() {
-            if (!startCounter) {return;}
-            var div = document.querySelector("#countdown");
-            var count = div.textContent * 1 - 1;
-            div.textContent = count;
-            if (count <= 0) {
-                redirect();
-            }
-        }, 1000);
-
-        function redirect() {
-          window.location.replace(newUrl);
-        }
-
-        function cancelRedirect() {
-          clearInterval(interval);
-          document.getElementById("redirectNotice").textContent = "Redirect cancelled.";
-          document.getElementById("overlay").style.opacity = 0;
-        }
-
-      </script>
     </div>
   </div>
 
@@ -160,6 +132,7 @@
 
   <!--Nav bar and footer script-->
   <script type="text/javascript" src="scripts/navigation.js"></script>
+  <script type="text/javascript" src="scripts/send_to_new_site.js"></script>
 
   <!--Linkedin script-->
   <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
